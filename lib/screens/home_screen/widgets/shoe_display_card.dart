@@ -7,10 +7,20 @@ class ShoeDisplayCard extends StatelessWidget {
     super.key,
     required this.height,
     required this.width,
+    required this.image,
+    required this.shoeName,
+    required this.shoeDescription,
+    required this.price,
+    required this.colors,
   });
 
   final double height;
   final double width;
+  final String image;
+  final String shoeName;
+  final String shoeDescription;
+  final String price;
+  final List<Color> colors;
 
   @override
   Widget build(BuildContext context) {
@@ -35,42 +45,84 @@ class ShoeDisplayCard extends StatelessWidget {
             Container(
               width: width * 0.55,
               height: height * .15,
-              color: Colors.grey,
+              color: Colors.transparent,
+              child: Image.asset(
+                image,
+                fit: BoxFit.cover,
+              ),
             ),
             SizedBox(
               height: height * 0.02,
             ),
             //Shoe-Text
             Text(
-              'Shoe Name',
+              shoeName,
               style: appTextStyle(
                   fontSize: 25,
                   fontColor: Colors.black,
                   fontWeight: FontWeight.bold),
             ),
+            SizedBox(
+              height: height * 0.005,
+            ),
             //Shoe-Description-Text
             Text(
-              'Shoe Description',
+              shoeDescription,
               style: appTextStyle(
-                  fontSize: 15,
+                  fontSize: 20,
                   fontColor: Colors.grey,
-                  fontWeight: FontWeight.normal),
+                  fontWeight: FontWeight.w500),
             ),
             SizedBox(
               height: height * 0.01,
             ),
-            //Shoe-Details-Row
-            Row(
-              children: [
-                //Show-Price
-                Text(
-                  '\$ price',
-                  style: appTextStyle(
-                      fontSize: 20,
-                      fontColor: Colors.black,
-                      fontWeight: FontWeight.w500),
-                )
-              ],
+            //Shoe-Price
+            Text(
+              '\$ $price',
+              style: appTextStyle(
+                  fontSize: 22,
+                  fontColor: Colors.black,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: height * 0.007,
+            ),
+            //Show-Colors
+            SizedBox(
+              width: width * 0.55,
+              height: height * 0.03,
+              child: Row(
+                children: [
+                  Text(
+                    'Colors',
+                    style: appTextStyle(
+                        fontSize: 18.0,
+                        fontColor: Colors.grey,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(
+                    width: width * 0.02,
+                  ),
+                  Expanded(
+                    child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: colors.map((color) {
+                          return Row(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: color,
+                                minRadius: 10,
+                                maxRadius: 14,
+                              ),
+                              SizedBox(
+                                width: width * 0.02,
+                              )
+                            ],
+                          );
+                        }).toList()),
+                  )
+                ],
+              ),
             )
           ],
         ),
@@ -84,10 +136,12 @@ class ShoeDisplayCardSmall extends StatelessWidget {
     super.key,
     required this.width,
     required this.height,
+    required this.image,
   });
 
   final double width;
   final double height;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -105,6 +159,6 @@ class ShoeDisplayCardSmall extends StatelessWidget {
                   blurRadius: 0.8,
                   offset: Offset(0, 1))
             ]),
-        child: Center(child: Image.asset(backgroundShoeImage)));
+        child: Center(child: Image.asset(image)));
   }
 }
