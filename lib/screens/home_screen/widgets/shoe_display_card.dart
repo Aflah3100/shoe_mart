@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:shoe_mart/utils/themes/text_styles.dart';
-import 'package:shoe_mart/utils/utils.dart';
+import '../../../utils/themes/text_styles.dart';
 
 class ShoeDisplayCard extends StatelessWidget {
   const ShoeDisplayCard({
     super.key,
     required this.height,
     required this.width,
-    required this.image,
+    required this.imageUrl,
     required this.shoeName,
     required this.shoeDescription,
     required this.price,
-    required this.colors,
+   
   });
 
   final double height;
   final double width;
-  final String image;
+  final String imageUrl;
   final String shoeName;
   final String shoeDescription;
   final String price;
-  final List<Color> colors;
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +44,8 @@ class ShoeDisplayCard extends StatelessWidget {
               width: width * 0.55,
               height: height * .15,
               color: Colors.transparent,
-              child: Image.asset(
-                image,
+              child: Image.network(
+                imageUrl,
                 fit: BoxFit.cover,
               ),
             ),
@@ -87,43 +85,43 @@ class ShoeDisplayCard extends StatelessWidget {
             SizedBox(
               height: height * 0.007,
             ),
-            //Show-Colors
-            SizedBox(
-              width: width * 0.55,
-              height: height * 0.03,
-              child: Row(
-                children: [
-                  Text(
-                    'Colors',
-                    style: appTextStyle(
-                        fontSize: 18.0,
-                        fontColor: Colors.grey,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(
-                    width: width * 0.02,
-                  ),
-                  Expanded(
-                    child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: colors.map((color) {
-                          return Row(
-                            children: [
-                              CircleAvatar(
-                                backgroundColor: color,
-                                minRadius: 10,
-                                maxRadius: 14,
-                              ),
-                              SizedBox(
-                                width: width * 0.02,
-                              )
-                            ],
-                          );
-                        }).toList()),
-                  )
-                ],
-              ),
-            )
+            // //Show-Colors
+            // SizedBox(
+            //   width: width * 0.55,
+            //   height: height * 0.03,
+            //   child: Row(
+            //     children: [
+            //       Text(
+            //         'Colors',
+            //         style: appTextStyle(
+            //             fontSize: 18.0,
+            //             fontColor: Colors.grey,
+            //             fontWeight: FontWeight.w600),
+            //       ),
+            //       SizedBox(
+            //         width: width * 0.02,
+            //       ),
+            //       Expanded(
+            //         child: ListView(
+            //             scrollDirection: Axis.horizontal,
+            //             children: colors.map((color) {
+            //               return Row(
+            //                 children: [
+            //                   CircleAvatar(
+            //                     backgroundColor: color,
+            //                     minRadius: 10,
+            //                     maxRadius: 14,
+            //                   ),
+            //                   SizedBox(
+            //                     width: width * 0.02,
+            //                   )
+            //                 ],
+            //               );
+            //             }).toList()),
+            //       )
+            //     ],
+            //   ),
+            // )
           ],
         ),
       ),
@@ -136,12 +134,13 @@ class ShoeDisplayCardSmall extends StatelessWidget {
     super.key,
     required this.width,
     required this.height,
-    required this.image,
+    required this.imageUrl,
   });
 
   final double width;
   final double height;
-  final String image;
+  final String imageUrl;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -159,6 +158,6 @@ class ShoeDisplayCardSmall extends StatelessWidget {
                   blurRadius: 0.8,
                   offset: Offset(0, 1))
             ]),
-        child: Center(child: Image.asset(image)));
+        child: Center(child: Image.network(imageUrl)));
   }
 }
