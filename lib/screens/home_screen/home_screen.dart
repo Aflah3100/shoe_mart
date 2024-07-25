@@ -103,19 +103,25 @@ class _ScreenHomeState extends State<ScreenHome> with TickerProviderStateMixin {
                         children: [
                           // Men's-shoe-Tab
                           DisplaySneaker(
-                              width: width,
-                              height: height,
-                              sneakerList: _menSneakerList),
+                            width: width,
+                            height: height,
+                            sneakerList: _menSneakerList,
+                            tabIndex: 0,
+                          ),
                           // Women's-shoe-Tab
                           DisplaySneaker(
-                              width: width,
-                              height: height,
-                              sneakerList: _womenSneakerList),
+                            width: width,
+                            height: height,
+                            sneakerList: _womenSneakerList,
+                            tabIndex: 1,
+                          ),
                           // Kids-shoe-Tab
                           DisplaySneaker(
-                              width: width,
-                              height: height,
-                              sneakerList: _kidsSneakerList)
+                            width: width,
+                            height: height,
+                            sneakerList: _kidsSneakerList,
+                            tabIndex: 2,
+                          )
                         ],
                       ),
                     ),

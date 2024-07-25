@@ -19,8 +19,39 @@ class ScreenSearch extends StatelessWidget {
             width: width,
             height: height,
             child: Center(
-              //Shoe-Display
-              child: Text("search"),
-            )));
+                //Shoe-Display
+                child: ModalSheetBrandButton(
+                    imageUrl: adidasLogo, onPress: () {}))));
+  }
+}
+
+class ModalSheetBrandButton extends StatelessWidget {
+  const ModalSheetBrandButton({
+    super.key,
+    required this.imageUrl,
+    required this.onPress,
+  });
+
+  final String imageUrl;
+
+  final void Function() onPress;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPress,
+      child: Container(
+        width: 80,
+        height: 50,
+        decoration: BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(10.0)),
+        child: Center(
+            child: Image.asset(
+          imageUrl,
+          fit: BoxFit.fill,
+        )),
+      ),
+    );
   }
 }

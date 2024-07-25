@@ -10,11 +10,13 @@ class DisplaySneaker extends StatelessWidget {
     required this.width,
     required this.height,
     required Future<List<SneakerModel>> sneakerList,
+    required this.tabIndex,
   }) : _sneakerList = sneakerList;
 
   final double width;
   final double height;
   final Future<List<SneakerModel>> _sneakerList;
+  final int tabIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +96,9 @@ class DisplaySneaker extends StatelessWidget {
                     GestureDetector(
                       onTap: () async {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (ctx) => const ScreenAllProducts()));
+                            builder: (ctx) => ScreenAllProducts(
+                                  tabIndex: tabIndex,
+                                )));
                       },
                       child: Text(
                         'Show All',

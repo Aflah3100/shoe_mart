@@ -2,21 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shoe_mart/models/sneaker_model.dart';
 import 'package:shoe_mart/screens/all_products_screen/widgets/display_sneaker_grid.dart';
+import 'package:shoe_mart/screens/all_products_screen/widgets/filter_bottom_sheet.dart';
 import 'package:shoe_mart/services/api_services.dart';
 import 'package:shoe_mart/utils/themes/text_styles.dart';
 import 'package:shoe_mart/utils/utils.dart';
 
 class ScreenAllProducts extends StatefulWidget {
-  const ScreenAllProducts({super.key});
+  const ScreenAllProducts({super.key, required this.tabIndex});
 
   @override
   State<ScreenAllProducts> createState() => _ScreenAllProductsState();
+
+  //Tab-index
+  final int tabIndex;
 }
 
 class _ScreenAllProductsState extends State<ScreenAllProducts>
     with TickerProviderStateMixin {
   //Controllers
-  late final _tabController = TabController(length: 3, vsync: this);
+  late final _tabController =
+      TabController(length: 3, vsync: this, initialIndex: widget.tabIndex);
 
   //Sneaker-Lists
   late final Future<List<SneakerModel>> _maleSneakerList;
@@ -33,6 +38,7 @@ class _ScreenAllProductsState extends State<ScreenAllProducts>
 
   @override
   Widget build(BuildContext context) {
+    print("Index: ${widget.tabIndex}");
     final width = MediaQuery.of(context).size.width * 1;
     final height = MediaQuery.of(context).size.height * 1;
     return Scaffold(
@@ -79,7 +85,9 @@ class _ScreenAllProductsState extends State<ScreenAllProducts>
                       ),
                       //sliders-button
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          showFilterBottomSheet(context);
+                        },
                         child: const Icon(
                           size: 25.0,
                           FontAwesomeIcons.sliders,
@@ -127,13 +135,19 @@ class _ScreenAllProductsState extends State<ScreenAllProducts>
               child: TabBarView(controller: _tabController, children: [
                 //Men-sneaker-grid
                 DisplaySneakerGrid(
-                    sneakerList: _maleSneakerList, width: width, height: height),
+                    sneakerList: _maleSneakerList,
+                    width: width,
+                    height: height),
                 //Women-sneaker-grid
                 DisplaySneakerGrid(
-                    sneakerList: _womenSneakerList, width: width, height: height),
+                    sneakerList: _womenSneakerList,
+                    width: width,
+                    height: height),
                 //Kids-sneaker-grid
                 DisplaySneakerGrid(
-                    sneakerList: _kidsSneakerList, width: width, height: height),
+                    sneakerList: _kidsSneakerList,
+                    width: width,
+                    height: height),
               ]),
             ),
           )
