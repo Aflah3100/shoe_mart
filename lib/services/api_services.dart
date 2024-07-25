@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart' as the_bundle;
-import 'package:shoe_mart/database/models/sneaker_model.dart';
+import 'package:shoe_mart/models/sneaker_model.dart';
 import 'package:shoe_mart/utils/utils.dart';
 
 //Helper class for fetching apis from the json files.

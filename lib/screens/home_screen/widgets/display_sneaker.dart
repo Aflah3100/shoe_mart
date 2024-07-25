@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shoe_mart/database/models/sneaker_model.dart';
+import 'package:shoe_mart/models/sneaker_model.dart';
+import 'package:shoe_mart/screens/all_products_screen/all_products_screen.dart';
 import 'package:shoe_mart/screens/home_screen/widgets/shoe_display_card.dart';
 import 'package:shoe_mart/utils/themes/text_styles.dart';
 
@@ -91,7 +92,10 @@ class DisplaySneaker extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: () async {},
+                      onTap: () async {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (ctx) => const ScreenAllProducts()));
+                      },
                       child: Text(
                         'Show All',
                         style: appTextStyle(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shoe_mart/database/models/sneaker_model.dart';
+import 'package:shoe_mart/models/sneaker_model.dart';
 import 'package:shoe_mart/screens/home_screen/widgets/display_sneaker.dart';
 import 'package:shoe_mart/services/api_services.dart';
 import 'package:shoe_mart/utils/themes/text_styles.dart';

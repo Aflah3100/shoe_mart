@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shoe_mart/providers/screen_provider.dart';
+import 'package:shoe_mart/screens/all_products_screen/all_products_screen.dart';
 import 'package:shoe_mart/screens/home_screen/home_screen.dart';
 import 'package:shoe_mart/screens/main_screen/widgets/bottom_nav_bar.dart';
 import 'package:shoe_mart/screens/cart_screen/cart_screen.dart';
@@ -22,14 +23,14 @@ class ScreenMain extends StatelessWidget {
     ];
     final width = MediaQuery.of(context).size.width * 1;
     final height = MediaQuery.of(context).size.height * 1;
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Consumer<ScreensProvider>(
-        builder: (context, value, child) {
-          return appScreens[value.getScreenIndex()];
-        },
-      ),
-      bottomNavigationBar: BottomNavBar(height: height, width: width),
-    );
+
+    return Consumer<ScreensProvider>(builder: (context, value, child) {
+      int screenIndex = value.getScreenIndex();
+      return Scaffold(
+        backgroundColor: (screenIndex == 0) ? Colors.transparent : Colors.white,
+        body: appScreens[screenIndex],
+        bottomNavigationBar: BottomNavBar(height: height, width: width),
+      );
+    });
   }
 }
