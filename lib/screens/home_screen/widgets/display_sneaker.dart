@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shoe_mart/models/sneaker_model.dart';
 import 'package:shoe_mart/screens/all_products_screen/all_products_screen.dart';
 import 'package:shoe_mart/screens/home_screen/widgets/shoe_display_card.dart';
+import 'package:shoe_mart/screens/product_display_screen/product_display_screen.dart';
 import 'package:shoe_mart/utils/themes/text_styles.dart';
 
 class DisplaySneaker extends StatelessWidget {
@@ -44,13 +45,21 @@ class DisplaySneaker extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (ctx, index) {
                             final currentShoe = snapshot.data![index];
-                            return ShoeDisplayCard(
-                              height: height,
-                              width: width,
-                              imageUrl: currentShoe.imageUrl[0],
-                              shoeName: currentShoe.name!,
-                              shoeDescription: currentShoe.category!,
-                              price: currentShoe.price!,
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (ctx) => ScreenProductDisplay(
+                                          sneaker: currentShoe,
+                                        )));
+                              },
+                              child: ShoeDisplayCard(
+                                height: height,
+                                width: width,
+                                imageUrl: currentShoe.imageUrl[0],
+                                shoeName: currentShoe.name!,
+                                shoeDescription: currentShoe.category!,
+                                price: currentShoe.price!,
+                              ),
                             );
                           },
                           separatorBuilder: (ctx, index) => SizedBox(
@@ -90,17 +99,17 @@ class DisplaySneaker extends StatelessWidget {
                   ),
                 ),
                 // Heading-2-Row
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (ctx) => ScreenAllProducts(
-                                  tabIndex: tabIndex,
-                                )));
-                      },
-                      child: Text(
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (ctx) => ScreenAllProducts(
+                              tabIndex: tabIndex,
+                            )));
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
                         'Show All',
                         style: appTextStyle(
                           fontSize: 20,
@@ -108,13 +117,13 @@ class DisplaySneaker extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
-                    const Icon(
-                      Icons.arrow_right,
-                      color: Colors.white,
-                      size: 30.0,
-                    ),
-                  ],
+                      const Icon(
+                        Icons.arrow_right,
+                        color: Colors.white,
+                        size: 30.0,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

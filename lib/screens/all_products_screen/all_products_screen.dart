@@ -38,7 +38,6 @@ class _ScreenAllProductsState extends State<ScreenAllProducts>
 
   @override
   Widget build(BuildContext context) {
-    print("Index: ${widget.tabIndex}");
     final width = MediaQuery.of(context).size.width * 1;
     final height = MediaQuery.of(context).size.height * 1;
     return Scaffold(

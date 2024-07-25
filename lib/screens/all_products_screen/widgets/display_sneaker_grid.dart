@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shoe_mart/models/sneaker_model.dart';
 import 'package:shoe_mart/screens/all_products_screen/widgets/staggered_shoe_tile.dart';
+import 'package:shoe_mart/screens/product_display_screen/product_display_screen.dart';
 import 'package:shoe_mart/utils/themes/text_styles.dart';
 
 class DisplaySneakerGrid extends StatelessWidget {
@@ -33,12 +33,21 @@ class DisplaySneakerGrid extends StatelessWidget {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (ctx, index) {
                     final currentShoe = snapshot.data![index];
-                    return StaggeredShoeTile(
-                        width: width,
-                        height: height,
-                        imageUrl: currentShoe.imageUrl[0],
-                        title: currentShoe.title!,
-                        price: currentShoe.price!);
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (ctx) => ScreenProductDisplay(
+                                    sneaker: currentShoe)));
+                      },
+                      child: StaggeredShoeTile(
+                          width: width,
+                          height: height,
+                          imageUrl: currentShoe.imageUrl[0],
+                          title: currentShoe.title!,
+                          price: currentShoe.price!),
+                    );
                   },
                   staggeredTileBuilder: (index) => StaggeredTile.extent(
                       1,

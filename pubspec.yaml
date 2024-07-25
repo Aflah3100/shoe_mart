@@ -17,6 +17,7 @@ dependencies:
     sdk: flutter
   font_awesome_flutter: ^10.7.0
   google_fonts: ^6.2.1
+  ionicons: ^0.2.2
   provider: ^6.1.2
 flutter:
   uses-material-design: true
