@@ -17,7 +17,7 @@ class ScreenMain extends StatelessWidget {
       const ScreenHome(),
       const ScreenSearch(),
       const ScreenFavourites(),
-      const ScreenCart(),
+      ScreenCart(),
       const ScreenProfile()
     ];
     final width = MediaQuery.of(context).size.width * 1;

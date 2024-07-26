@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
+import 'package:shoe_mart/database/models/sneaker_model/hive_sneaker_model.dart';
 import 'package:shoe_mart/providers/product_provider.dart';
 import 'package:shoe_mart/providers/screen_provider.dart';
 import 'package:shoe_mart/screens/main_screen/main_screen.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  if(!Hive.isAdapterRegistered(HiveSneakerModelAdapter().typeId)){
+    Hive.registerAdapter(HiveSneakerModelAdapter());
+  }
   runApp(const MyApp());
 }
 
