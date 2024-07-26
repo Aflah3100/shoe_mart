@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shoe_mart/providers/product_provider.dart';
 import 'package:shoe_mart/providers/screen_provider.dart';
 import 'package:shoe_mart/screens/main_screen/main_screen.dart';
 
@@ -14,7 +15,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (ctx) => ScreensProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (ctx) => ScreensProvider()),
+        ChangeNotifierProvider(create: (ctx) => ProductProvider())
+      ],
       child: MaterialApp(
         title: 'Shoe Mart',
         debugShowCheckedModeBanner: false,

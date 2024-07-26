@@ -4,7 +4,7 @@ description: A new Flutter project.
 publish_to: none
 version: 1.0.0+1
 environment:
-  sdk: '>=3.4.3 <4.0.0'
+  sdk: ">=3.4.3 <4.0.0"
 dependencies:
   cached_network_image: ^3.3.1
   cupertino_icons: ^1.0.6
@@ -27,6 +27,9 @@ flutter:
     - assets/images/gucci.png
     - assets/images/jordan.png
     - assets/images/nike.png
+    - assets/images/men_shoes_size_guide.png
+    - assets/images/women_shoe_size_guide.png
+    - assets/images/kids_shoe_size_guide.png
     - assets/images/top_image.png
     - assets/json/kids_shoes.json
     - assets/json/men_shoes.json

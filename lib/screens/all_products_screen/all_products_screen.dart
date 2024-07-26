@@ -134,19 +134,25 @@ class _ScreenAllProductsState extends State<ScreenAllProducts>
               child: TabBarView(controller: _tabController, children: [
                 //Men-sneaker-grid
                 DisplaySneakerGrid(
-                    sneakerList: _maleSneakerList,
-                    width: width,
-                    height: height),
+                  sneakerList: _maleSneakerList,
+                  width: width,
+                  height: height,
+                  tabIndex: widget.tabIndex,
+                ),
                 //Women-sneaker-grid
                 DisplaySneakerGrid(
-                    sneakerList: _womenSneakerList,
-                    width: width,
-                    height: height),
+                  sneakerList: _womenSneakerList,
+                  width: width,
+                  height: height,
+                  tabIndex: widget.tabIndex,
+                ),
                 //Kids-sneaker-grid
                 DisplaySneakerGrid(
-                    sneakerList: _kidsSneakerList,
-                    width: width,
-                    height: height),
+                  sneakerList: _kidsSneakerList,
+                  width: width,
+                  height: height,
+                  tabIndex: widget.tabIndex,
+                ),
               ]),
             ),
           )

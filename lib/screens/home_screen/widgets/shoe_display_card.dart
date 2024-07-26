@@ -10,7 +10,6 @@ class ShoeDisplayCard extends StatelessWidget {
     required this.shoeName,
     required this.shoeDescription,
     required this.price,
-   
   });
 
   final double height;
@@ -32,7 +31,7 @@ class ShoeDisplayCard extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(15.0)),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //Like-Button
@@ -140,7 +139,6 @@ class ShoeDisplayCardSmall extends StatelessWidget {
   final double width;
   final double height;
   final String imageUrl;
-  
 
   @override
   Widget build(BuildContext context) {

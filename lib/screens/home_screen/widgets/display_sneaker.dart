@@ -49,7 +49,7 @@ class DisplaySneaker extends StatelessWidget {
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (ctx) => ScreenProductDisplay(
-                                          sneaker: currentShoe,
+                                          sneaker: currentShoe, tabIndex: tabIndex,
                                         )));
                               },
                               child: ShoeDisplayCard(
@@ -145,12 +145,21 @@ class DisplaySneaker extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (ctx, index) {
                             final currentShoe = snapshot.data![index];
-                            return ShoeDisplayCardSmall(
-                                width: width,
-                                height: height,
-                                imageUrl: currentShoe.imageUrl.length > 1
-                                    ? currentShoe.imageUrl[1]
-                                    : currentShoe.imageUrl[0]);
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (ctx) => ScreenProductDisplay(
+                                            sneaker: currentShoe, tabIndex: tabIndex,)));
+                              },
+                              child: ShoeDisplayCardSmall(
+                                  width: width,
+                                  height: height,
+                                  imageUrl: currentShoe.imageUrl.length > 1
+                                      ? currentShoe.imageUrl[1]
+                                      : currentShoe.imageUrl[0]),
+                            );
                           },
                           separatorBuilder: (ctx, index) => SizedBox(
                                 width: width * 0.02,

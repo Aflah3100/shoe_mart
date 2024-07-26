@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shoe_mart/providers/screen_provider.dart';
-import 'package:shoe_mart/screens/all_products_screen/all_products_screen.dart';
 import 'package:shoe_mart/screens/home_screen/home_screen.dart';
 import 'package:shoe_mart/screens/main_screen/widgets/bottom_nav_bar.dart';
 import 'package:shoe_mart/screens/cart_screen/cart_screen.dart';
 import 'package:shoe_mart/screens/favourites_screen/favourites_screen.dart';
-import 'package:shoe_mart/screens/product_display_screen/product_display_screen.dart';
 import 'package:shoe_mart/screens/profile_screen/profile_screen.dart';
 import 'package:shoe_mart/screens/search_screen/search_screen.dart';
 

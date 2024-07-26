@@ -11,11 +11,13 @@ class DisplaySneakerGrid extends StatelessWidget {
     required Future<List<SneakerModel>> sneakerList,
     required this.width,
     required this.height,
+    required this.tabIndex,
   }) : _sneakerList = sneakerList;
 
   final Future<List<SneakerModel>> _sneakerList;
   final double width;
   final double height;
+  final int tabIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,9 @@ class DisplaySneakerGrid extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (ctx) => ScreenProductDisplay(
-                                    sneaker: currentShoe)));
+                                      sneaker: currentShoe,
+                                      tabIndex: tabIndex,
+                                    )));
                       },
                       child: StaggeredShoeTile(
                           width: width,

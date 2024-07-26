@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
 import 'package:shoe_mart/models/sneaker_model.dart';
+import 'package:shoe_mart/providers/product_provider.dart';
+import 'package:shoe_mart/screens/product_display_screen/widgets/product_details.dart';
+import 'package:shoe_mart/screens/product_display_screen/widgets/product_images.dart';
 
 class ScreenProductDisplay extends StatelessWidget {
-  ScreenProductDisplay({super.key, required this.sneaker});
+  ScreenProductDisplay(
+      {super.key, required this.sneaker, required this.tabIndex});
 
   final _pageController = PageController();
   final SneakerModel sneaker;
+  final int tabIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +32,12 @@ class ScreenProductDisplay extends StatelessWidget {
                 IconButton(
                   onPressed: () {
                     Navigator.pop(context);
+                    context.read<ProductProvider>().clearShoeSize();
                   },
                   icon: const Icon(Ionicons.close, color: Colors.black),
                 ),
 
-                //ellipse-horizontal-icon-button
+                //Ellipse-horizontal-icon-button
                 IconButton(
                   onPressed: () {},
                   icon: const Icon(Ionicons.ellipsis_horizontal,
@@ -39,62 +46,31 @@ class ScreenProductDisplay extends StatelessWidget {
               ],
             ),
 
-            pinned: true,
+            pinned: false,
             snap: false,
             floating: true,
             expandedHeight: height,
 
             flexibleSpace: FlexibleSpaceBar(
+              //Base-Stack
               background: Stack(
                 children: [
-                  SizedBox(
-                    width: width,
-                    height: height * 0.50,
-                    child: PageView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: sneaker.imageUrl.length,
-                        controller: _pageController,
-                        onPageChanged: (page) {},
-                        itemBuilder: (ctx, index) {
-                          return Stack(
-                            children: [
-                              //Sneaker-Images
-                              Image.network(
-                                  fit: BoxFit.contain, sneaker.imageUrl[index]),
-                              //like-button
-                              Positioned(
-                                top: height * 0.09,
-                                left: width * 0.86,
-                                child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      Ionicons.heart_outline,
-                                      size: 25.0,
-                                    )),
-                              ),
-                              //circle-scroll-indicator
-                              Positioned(
-                                bottom: 40,
-                                left: width * 0.44,
-                                child: Row(
-                                    children: List<Widget>.generate(
-                                        sneaker.imageUrl.length,
-                                        (ind) => Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 3),
-                                              child: CircleAvatar(
-                                                radius: 4,
-                                                backgroundColor: (ind == index)
-                                                    ? Colors.black
-                                                    : Colors.grey,
-                                              ),
-                                            ))),
-                              )
-                            ],
-                          );
-                        }),
-                  )
+                  //Product-images-page-view
+                  ProductImages(
+                      width: width,
+                      height: height,
+                      sneaker: sneaker,
+                      pageController: _pageController),
+
+                  //Product-details-widget
+                  Positioned(
+                      top: height * 0.45,
+                      child: ProductDetails(
+                        height: height,
+                        width: width,
+                        sneaker: sneaker,
+                        tabIndex: tabIndex,
+                      )),
                 ],
               ),
             ),
