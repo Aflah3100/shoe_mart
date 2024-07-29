@@ -25,7 +25,7 @@ class AddToCartButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productNotifier = context.read<ProductProvider>();
-    final databaseNotifier = context.read<DatabaseProvider>();
+    final databaseNotifier = context.read<CartDatabaseProvider>();
     return GestureDetector(
       onTap: () async {
         // CartDb.instance.clearAll();

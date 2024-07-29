@@ -22,7 +22,7 @@ class CartProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final databaseNotifier = context.read<DatabaseProvider>();
+    final databaseNotifier = context.read<CartDatabaseProvider>();
     return Container(
       width: width,
       height: height * 0.12,

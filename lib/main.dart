@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (ctx) => ScreensProvider()),
         ChangeNotifierProvider(create: (ctx) => ProductProvider()),
-        ChangeNotifierProvider(create: (ctx)=> DatabaseProvider())
+        ChangeNotifierProvider(create: (ctx)=> CartDatabaseProvider())
       ],
       child: MaterialApp(
         title: 'Shoe Mart',
