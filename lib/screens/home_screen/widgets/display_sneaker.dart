@@ -49,7 +49,8 @@ class DisplaySneaker extends StatelessWidget {
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (ctx) => ScreenProductDisplay(
-                                          sneaker: currentShoe, tabIndex: tabIndex,
+                                          sneaker: currentShoe,
+                                          tabIndex: tabIndex,
                                         )));
                               },
                               child: ShoeDisplayCard(
@@ -151,7 +152,9 @@ class DisplaySneaker extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (ctx) => ScreenProductDisplay(
-                                            sneaker: currentShoe, tabIndex: tabIndex,)));
+                                              sneaker: currentShoe,
+                                              tabIndex: tabIndex,
+                                            )));
                               },
                               child: ShoeDisplayCardSmall(
                                   width: width,

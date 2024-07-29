@@ -12,10 +12,17 @@ class ScreenCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CartDb.instance.fetchCartProducts().then((productList) {
+      context
+          .read<DatabaseProvider>()
+          .addProductsToCartList(productList: productList);
+    });
     final width = MediaQuery.of(context).size.width * 1;
     final height = MediaQuery.of(context).size.height * 1;
     return Scaffold(
+      backgroundColor: const Color(0xffe2e2e2),
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         //Top-heading
         title: Text(
           'My Cart',
@@ -32,8 +39,23 @@ class ScreenCart extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: Stack(
           children: [
-            //Cart-Product-Card
-            CartProductCard(width: width, height: height),
+           
+            //Cart-Items-Builder
+            Consumer<DatabaseProvider>(
+              builder: (context, value, child) {
+                return ListView.separated(
+                    itemBuilder: (ctx, index) {
+                      return CartProductCard(
+                        width: width,
+                        height: height,
+                        hiveSneaker: value.getCartList()[index],
+                      );
+                    },
+                    separatorBuilder: (ctx, index) =>
+                        SizedBox(height: height * 0.02),
+                    itemCount: value.getCartList().length);
+              },
+            ),
 
             //Checkout-Button
             Align(

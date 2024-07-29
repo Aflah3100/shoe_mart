@@ -3,7 +3,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import 'package:shoe_mart/models/sneaker_model.dart';
 import 'package:shoe_mart/providers/product_provider.dart';
-import 'package:shoe_mart/screens/product_display_screen/widgets/checkout_button.dart';
+import 'package:shoe_mart/screens/product_display_screen/widgets/add_to_cart_button.dart';
 import 'package:shoe_mart/screens/product_display_screen/widgets/size_button.dart';
 import 'package:shoe_mart/utils/themes/text_styles.dart';
 import 'package:shoe_mart/utils/utils.dart';
@@ -227,7 +227,7 @@ class ProductDetails extends StatelessWidget {
           //checkout-button
           Align(
             alignment: Alignment.bottomCenter,
-            child: AddToCartButton(height: height, width: width, sneaker: sneaker,),
+            child: AddToCartButton(height: height, width: width, sneaker: sneaker, tabIndex: tabIndex,),
           )
         ],
       ),

@@ -14,11 +14,12 @@ class AddToCartButton extends StatelessWidget {
     super.key,
     required this.height,
     required this.width,
-    required this.sneaker,
+    required this.sneaker, required this.tabIndex,
   });
 
   final double height;
   final double width;
+  final int tabIndex;
   final SneakerModel sneaker;
 
   @override
@@ -43,18 +44,18 @@ class AddToCartButton extends StatelessWidget {
               id: sneaker.id!,
               name: sneaker.name!,
               category: sneaker.category!,
+              imageUrl: sneaker.imageUrl,
+              oldPrice: sneaker.oldPrice!,
+              sizes: sneaker.sizes,
               price: sneaker.price!,
-              size: productNotifier.getShoeSize(),
-              imageUrl: sneaker.imageUrl[0]);
+              description: sneaker.description!,
+              title: sneaker.title!,
+              selectedSize: productNotifier.getShoeSize(), tabIndex: tabIndex);
           //Adding-to-cartdb.
           final result =
               await CartDb.instance.addToCart(sneaker: selectedSneaker);
 
-          if (result is int) {
-            if (result ==0) {
-              //New Sneaker model object is created 
-              databaseNotifier.addSneakerToCartList(sneaker: selectedSneaker);
-            }
+          if (result is bool) {
             Navigator.pop(context);
             productNotifier.clearShoeSize();
             Fluttertoast.showToast(
