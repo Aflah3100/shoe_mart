@@ -23,13 +23,13 @@ class HiveSneakerModelAdapter extends TypeAdapter<HiveSneakerModel> {
       price: fields[3] as String,
       size: fields[4] as String,
       imageUrl: fields[5] as String,
-    );
+    )..count = fields[6] as int;
   }
 
   @override
   void write(BinaryWriter writer, HiveSneakerModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -41,7 +41,9 @@ class HiveSneakerModelAdapter extends TypeAdapter<HiveSneakerModel> {
       ..writeByte(4)
       ..write(obj.size)
       ..writeByte(5)
-      ..write(obj.imageUrl);
+      ..write(obj.imageUrl)
+      ..writeByte(6)
+      ..write(obj.count);
   }
 
   @override

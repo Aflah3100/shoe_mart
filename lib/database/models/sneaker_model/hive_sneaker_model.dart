@@ -15,6 +15,8 @@ class HiveSneakerModel {
   final String size;
   @HiveField(5)
   final String imageUrl;
+  @HiveField(6)
+  int count = 1;
 
   HiveSneakerModel(
       {required this.id,

@@ -227,7 +227,7 @@ class ProductDetails extends StatelessWidget {
           //checkout-button
           Align(
             alignment: Alignment.bottomCenter,
-            child: CheckoutButton(height: height, width: width, sneaker: sneaker,),
+            child: AddToCartButton(height: height, width: width, sneaker: sneaker,),
           )
         ],
       ),

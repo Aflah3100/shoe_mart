@@ -5,11 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:shoe_mart/database/functions/cart_box/cart_db.dart';
 import 'package:shoe_mart/database/models/sneaker_model/hive_sneaker_model.dart';
 import 'package:shoe_mart/models/sneaker_model.dart';
+import 'package:shoe_mart/providers/database_provider.dart';
 import 'package:shoe_mart/providers/product_provider.dart';
 import 'package:shoe_mart/utils/themes/text_styles.dart';
 
-class CheckoutButton extends StatelessWidget {
-  const CheckoutButton({
+class AddToCartButton extends StatelessWidget {
+  const AddToCartButton({
     super.key,
     required this.height,
     required this.width,
@@ -22,10 +23,12 @@ class CheckoutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productProvider = context.read<ProductProvider>();
+    final productNotifier = context.read<ProductProvider>();
+    final databaseNotifier = context.read<DatabaseProvider>();
     return GestureDetector(
       onTap: () async {
-        if (productProvider.getShoeSize().isEmpty) {
+        // CartDb.instance.clearAll();
+        if (productNotifier.getShoeSize().isEmpty) {
           //Shoe-Size-Not-Selected
           Fluttertoast.showToast(
             msg: 'Please Select a Shoe Size',
@@ -41,14 +44,19 @@ class CheckoutButton extends StatelessWidget {
               name: sneaker.name!,
               category: sneaker.category!,
               price: sneaker.price!,
-              size: productProvider.getShoeSize(),
+              size: productNotifier.getShoeSize(),
               imageUrl: sneaker.imageUrl[0]);
+          //Adding-to-cartdb.
           final result =
               await CartDb.instance.addToCart(sneaker: selectedSneaker);
 
-          if (result is bool) {
+          if (result is int) {
+            if (result ==0) {
+              //New Sneaker model object is created 
+              databaseNotifier.addSneakerToCartList(sneaker: selectedSneaker);
+            }
             Navigator.pop(context);
-            productProvider.clearShoeSize();
+            productNotifier.clearShoeSize();
             Fluttertoast.showToast(
               msg: 'Added To Cart!!',
               toastLength: Toast.LENGTH_LONG,
