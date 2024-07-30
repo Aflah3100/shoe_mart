@@ -46,22 +46,19 @@ class DisplaySneaker extends StatelessWidget {
                           itemBuilder: (ctx, index) {
                             final currentShoe = snapshot.data![index];
                             return GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (ctx) => ScreenProductDisplay(
-                                          sneaker: currentShoe,
-                                          tabIndex: tabIndex,
-                                        )));
-                              },
-                              child: ShoeDisplayCard(
-                                height: height,
-                                width: width,
-                                imageUrl: currentShoe.imageUrl[0],
-                                shoeName: currentShoe.name!,
-                                shoeDescription: currentShoe.category!,
-                                price: currentShoe.price!,
-                              ),
-                            );
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (ctx) => ScreenProductDisplay(
+                                            sneaker: currentShoe,
+                                            tabIndex: tabIndex,
+                                          )));
+                                },
+                                child: ShoeDisplayCard(
+                                  width: width,
+                                  height: height,
+                                  displaySneaker: currentShoe,
+                                  tabIndex: tabIndex,
+                                ));
                           },
                           separatorBuilder: (ctx, index) => SizedBox(
                             width: width * 0.03,

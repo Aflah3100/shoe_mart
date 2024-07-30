@@ -3,15 +3,16 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:shoe_mart/database/functions/cart_box/cart_db.dart';
 import 'package:shoe_mart/database/models/sneaker_model/hive_sneaker_model.dart';
-import 'package:shoe_mart/providers/database_provider.dart';
+import 'package:shoe_mart/providers/cart_database_provider.dart';
+import 'package:shoe_mart/providers/favourites_database_provider.dart';
 import 'package:shoe_mart/providers/product_provider.dart';
 import 'package:shoe_mart/providers/screen_provider.dart';
 import 'package:shoe_mart/screens/main_screen/main_screen.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  if(!Hive.isAdapterRegistered(HiveSneakerModelAdapter().typeId)){
+  if (!Hive.isAdapterRegistered(HiveSneakerModelAdapter().typeId)) {
     Hive.registerAdapter(HiveSneakerModelAdapter());
   }
   // await CartDb.instance.clearAll();
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (ctx) => ScreensProvider()),
         ChangeNotifierProvider(create: (ctx) => ProductProvider()),
-        ChangeNotifierProvider(create: (ctx)=> CartDatabaseProvider())
+        ChangeNotifierProvider(create: (ctx) => CartDatabaseProvider()),
+        ChangeNotifierProvider(create: (ctx) => FavouritesDatabaseProvider())
       ],
       child: MaterialApp(
         title: 'Shoe Mart',

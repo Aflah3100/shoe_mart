@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:shoe_mart/database/functions/cart_box/cart_db.dart';
 import 'package:shoe_mart/database/models/sneaker_model/hive_sneaker_model.dart';
 import 'package:shoe_mart/models/sneaker_model.dart';
-import 'package:shoe_mart/providers/database_provider.dart';
 import 'package:shoe_mart/providers/product_provider.dart';
 import 'package:shoe_mart/utils/themes/text_styles.dart';
 
@@ -25,7 +24,6 @@ class AddToCartButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productNotifier = context.read<ProductProvider>();
-    final databaseNotifier = context.read<CartDatabaseProvider>();
     return GestureDetector(
       onTap: () async {
         // CartDb.instance.clearAll();

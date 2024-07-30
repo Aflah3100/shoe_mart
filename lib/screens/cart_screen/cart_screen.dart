@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import 'package:shoe_mart/database/functions/cart_box/cart_db.dart';
-import 'package:shoe_mart/providers/database_provider.dart';
+import 'package:shoe_mart/providers/cart_database_provider.dart';
 import 'package:shoe_mart/screens/cart_screen/widgets/cart_product_card.dart';
 import 'package:shoe_mart/utils/themes/text_styles.dart';
+import 'package:shoe_mart/utils/utils.dart';
 
 class ScreenCart extends StatelessWidget {
   const ScreenCart({super.key});
@@ -19,7 +20,7 @@ class ScreenCart extends StatelessWidget {
     final width = MediaQuery.of(context).size.width * 1;
     final height = MediaQuery.of(context).size.height * 1;
     return Scaffold(
-      backgroundColor: const Color(0xffe2e2e2),
+      backgroundColor: bgColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         //Top-heading

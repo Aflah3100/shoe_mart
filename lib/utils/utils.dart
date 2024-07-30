@@ -1,4 +1,6 @@
 //Assets
+import 'dart:ui';
+
 String backgroundShoeImage = 'assets/images/shoe_background_image.jpg';
 String adidasLogo = 'assets/images/adidas.png';
 String gucciLogo = 'assets/images/gucci.png';
@@ -11,3 +13,6 @@ String kidsSizeGuide = 'assets/images/kids_shoe_size_guide.png';
 String menShoesJson = 'assets/json/men_shoes.json';
 String kidsShoesJson = 'assets/json/kids_shoes.json';
 String womenShoesJson = 'assets/json/women_shoes.json';
+
+//Colors
+const bgColor=const Color(0xffe2e2e2);

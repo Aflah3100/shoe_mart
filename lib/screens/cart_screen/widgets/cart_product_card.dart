@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shoe_mart/database/functions/cart_box/cart_db.dart';
 import 'package:shoe_mart/database/models/sneaker_model/hive_sneaker_model.dart';
 import 'package:shoe_mart/models/sneaker_model.dart';
-import 'package:shoe_mart/providers/database_provider.dart';
+import 'package:shoe_mart/providers/cart_database_provider.dart';
 import 'package:shoe_mart/screens/product_display_screen/product_display_screen.dart';
 import 'package:shoe_mart/utils/themes/text_styles.dart';
 

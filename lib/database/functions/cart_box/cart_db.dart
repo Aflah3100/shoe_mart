@@ -16,7 +16,7 @@ class CartDb {
 
   Future<dynamic> addToCart({required HiveSneakerModel sneaker}) async {
     try {
-      Box<HiveSneakerModel> cartBox = await Hive.openBox(_boxName);
+      Box<HiveSneakerModel> cartBox = await Hive.openBox<HiveSneakerModel>(_boxName);
 
       final String productid = getProductId(
           sneakerId: sneaker.id, sneakerSize: sneaker.selectedSize);

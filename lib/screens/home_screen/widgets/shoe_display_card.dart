@@ -1,26 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+import 'package:shoe_mart/database/functions/favourites_box/favourites_db.dart';
+import 'package:shoe_mart/database/models/sneaker_model/hive_sneaker_model.dart';
+import 'package:shoe_mart/models/sneaker_model.dart';
+import 'package:shoe_mart/providers/favourites_database_provider.dart';
 import '../../../utils/themes/text_styles.dart';
 
 class ShoeDisplayCard extends StatelessWidget {
   const ShoeDisplayCard({
     super.key,
-    required this.height,
     required this.width,
-    required this.imageUrl,
-    required this.shoeName,
-    required this.shoeDescription,
-    required this.price,
+    required this.height,
+    required this.displaySneaker,
+    required this.tabIndex,
   });
-
-  final double height;
   final double width;
-  final String imageUrl;
-  final String shoeName;
-  final String shoeDescription;
-  final String price;
+  final double height;
+  final SneakerModel displaySneaker;
+  final int tabIndex;
 
   @override
   Widget build(BuildContext context) {
+    final favouritesDatabaseNotifier =
+        context.read<FavouritesDatabaseProvider>();
+    FavouritesDb.instance.fetchFavouritesProducts().then((productList) {
+      favouritesDatabaseNotifier.addProductsToFavouritesList(
+          productList: productList);
+    });
     return Card(
       elevation: 10.0,
       shadowColor: Colors.grey,
@@ -34,9 +41,80 @@ class ShoeDisplayCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //Like-Button
-            IconButton(
-                onPressed: () {}, icon: const Icon(Icons.favorite_outline)),
+            Consumer<FavouritesDatabaseProvider>(
+              builder: (context, notifier, child) {
+                bool isLiked = false;
+                final list = notifier.getFavouritesList();
+                for (int i = 0; i < list.length; i++) {
+                  if (list[i].id == displaySneaker.id) {
+                    isLiked = true;
+                    break;
+                  }
+                }
+                return //Like-Button
+                    IconButton(
+                        onPressed: () async {
+                          if (!isLiked) {
+                            //Not-Liked-Product
+                            final hiveSneaker = HiveSneakerModel(
+                                id: displaySneaker.id!,
+                                name: displaySneaker.name!,
+                                category: displaySneaker.category!,
+                                imageUrl: displaySneaker.imageUrl,
+                                oldPrice: displaySneaker.oldPrice!,
+                                sizes: displaySneaker.sizes,
+                                price: displaySneaker.price!,
+                                description: displaySneaker.description!,
+                                title: displaySneaker.title!,
+                                tabIndex: tabIndex,
+                                selectedSize: '');
+                            final result = await FavouritesDb.instance
+                                .addToFavourites(sneaker: hiveSneaker);
+                            if (result is bool) {
+                              //Success-in-adding-to-favourties-cart
+                              favouritesDatabaseNotifier
+                                  .addSneakerToFavouriteList(
+                                      sneaker: hiveSneaker);
+                            } else {
+                              //Error-in-adding-to-favourties-cart
+                              Fluttertoast.showToast(
+                                msg: 'OOPS!! , Some Error Occured',
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 15.0,
+                              );
+                            }
+                          } else {
+                            //Liked-Product
+                            final result = await FavouritesDb.instance
+                                .deleteFavouritesProduct(
+                                    productId: displaySneaker.id!);
+
+                            if (result is bool) {
+                              //Success-in-deleting-from-favourite-cart
+                              favouritesDatabaseNotifier
+                                  .deleteProductFromFavouritesList(
+                                      id: displaySneaker.id!);
+                            } else {
+                              //Error-in-deleting-from-favourite-cart
+                              Fluttertoast.showToast(
+                                msg: 'OOPS!! , Some Error Occured',
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 15.0,
+                              );
+                            }
+                          }
+                        },
+                        icon: (isLiked)
+                            ? const Icon(Icons.favorite)
+                            : const Icon(Icons.favorite_outline));
+              },
+            ),
 
             //Shoe-Image-Container
             Container(
@@ -44,7 +122,7 @@ class ShoeDisplayCard extends StatelessWidget {
               height: height * .15,
               color: Colors.transparent,
               child: Image.network(
-                imageUrl,
+                displaySneaker.imageUrl[0],
                 fit: BoxFit.cover,
               ),
             ),
@@ -53,7 +131,7 @@ class ShoeDisplayCard extends StatelessWidget {
             ),
             //Shoe-Text
             Text(
-              shoeName,
+              displaySneaker.name!,
               style: appTextStyle(
                   fontSize: 25,
                   fontColor: Colors.black,
@@ -64,7 +142,7 @@ class ShoeDisplayCard extends StatelessWidget {
             ),
             //Shoe-Description-Text
             Text(
-              shoeDescription,
+              displaySneaker.category!,
               style: appTextStyle(
                   fontSize: 20,
                   fontColor: Colors.grey,
@@ -75,7 +153,7 @@ class ShoeDisplayCard extends StatelessWidget {
             ),
             //Shoe-Price
             Text(
-              '\$ $price',
+              '\$ ${displaySneaker.price!}',
               style: appTextStyle(
                   fontSize: 22,
                   fontColor: Colors.black,
@@ -84,43 +162,6 @@ class ShoeDisplayCard extends StatelessWidget {
             SizedBox(
               height: height * 0.007,
             ),
-            // //Show-Colors
-            // SizedBox(
-            //   width: width * 0.55,
-            //   height: height * 0.03,
-            //   child: Row(
-            //     children: [
-            //       Text(
-            //         'Colors',
-            //         style: appTextStyle(
-            //             fontSize: 18.0,
-            //             fontColor: Colors.grey,
-            //             fontWeight: FontWeight.w600),
-            //       ),
-            //       SizedBox(
-            //         width: width * 0.02,
-            //       ),
-            //       Expanded(
-            //         child: ListView(
-            //             scrollDirection: Axis.horizontal,
-            //             children: colors.map((color) {
-            //               return Row(
-            //                 children: [
-            //                   CircleAvatar(
-            //                     backgroundColor: color,
-            //                     minRadius: 10,
-            //                     maxRadius: 14,
-            //                   ),
-            //                   SizedBox(
-            //                     width: width * 0.02,
-            //                   )
-            //                 ],
-            //               );
-            //             }).toList()),
-            //       )
-            //     ],
-            //   ),
-            // )
           ],
         ),
       ),
