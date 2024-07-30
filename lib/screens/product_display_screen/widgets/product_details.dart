@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
+import 'package:shoe_mart/database/functions/favourites_box/favourites_db.dart';
 import 'package:shoe_mart/models/sneaker_model.dart';
+import 'package:shoe_mart/providers/favourites_database_provider.dart';
 import 'package:shoe_mart/providers/product_provider.dart';
+import 'package:shoe_mart/screens/home_screen/widgets/like_button.dart';
 import 'package:shoe_mart/screens/product_display_screen/widgets/add_to_cart_button.dart';
 import 'package:shoe_mart/screens/product_display_screen/widgets/size_button.dart';
 import 'package:shoe_mart/utils/themes/text_styles.dart';
@@ -67,6 +69,12 @@ class ProductDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final favouritesDatabaseNotifier =
+        context.read<FavouritesDatabaseProvider>();
+    FavouritesDb.instance.fetchFavouritesProducts().then((productList) {
+      favouritesDatabaseNotifier.addProductsToFavouritesList(
+          productList: productList);
+    });
     return Container(
       height: height * 0.60,
       width: width,
@@ -90,14 +98,10 @@ class ProductDetails extends StatelessWidget {
                     fontColor: Colors.black,
                     fontWeight: FontWeight.bold),
               ),
-              //Like-button
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Ionicons.heart_outline,
-                    color: Colors.black,
-                    size: 28.0,
-                  ))
+              LikeButton(
+                  displaySneaker: sneaker,
+                  tabIndex: tabIndex,
+                  favouritesDatabaseNotifier: favouritesDatabaseNotifier)
             ],
           ),
 
@@ -227,7 +231,12 @@ class ProductDetails extends StatelessWidget {
           //checkout-button
           Align(
             alignment: Alignment.bottomCenter,
-            child: AddToCartButton(height: height, width: width, sneaker: sneaker, tabIndex: tabIndex,),
+            child: AddToCartButton(
+              height: height,
+              width: width,
+              sneaker: sneaker,
+              tabIndex: tabIndex,
+            ),
           )
         ],
       ),
