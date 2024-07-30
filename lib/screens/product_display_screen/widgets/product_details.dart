@@ -72,8 +72,9 @@ class ProductDetails extends StatelessWidget {
     final favouritesDatabaseNotifier =
         context.read<FavouritesDatabaseProvider>();
     FavouritesDb.instance.fetchFavouritesProducts().then((productList) {
-      favouritesDatabaseNotifier.addProductsToFavouritesList(
-          productList: productList);
+      final productIdList = productList.map((sneaker) => sneaker.id).toList();
+      favouritesDatabaseNotifier.addProductsIdsToFavouritesList(
+          productIdList: productIdList);
     });
     return Container(
       height: height * 0.60,

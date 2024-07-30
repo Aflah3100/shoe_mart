@@ -19,18 +19,14 @@ class ShoeDisplayCard extends StatelessWidget {
   final SneakerModel displaySneaker;
   final int tabIndex;
 
-  //Functions
-  void _likeSneaker(){
-    
-  }
-
   @override
   Widget build(BuildContext context) {
     final favouritesDatabaseNotifier =
         context.read<FavouritesDatabaseProvider>();
     FavouritesDb.instance.fetchFavouritesProducts().then((productList) {
-      favouritesDatabaseNotifier.addProductsToFavouritesList(
-          productList: productList);
+      final productIdList = productList.map((sneaker) => sneaker.id).toList();
+      favouritesDatabaseNotifier.addProductsIdsToFavouritesList(
+          productIdList: productIdList);
     });
     return Card(
       elevation: 10.0,
@@ -45,7 +41,10 @@ class ShoeDisplayCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            LikeButton(displaySneaker: displaySneaker, tabIndex: tabIndex, favouritesDatabaseNotifier: favouritesDatabaseNotifier),
+            LikeButton(
+                displaySneaker: displaySneaker,
+                tabIndex: tabIndex,
+                favouritesDatabaseNotifier: favouritesDatabaseNotifier),
 
             //Shoe-Image-Container
             Container(
@@ -99,8 +98,6 @@ class ShoeDisplayCard extends StatelessWidget {
     );
   }
 }
-
-
 
 class ShoeDisplayCardSmall extends StatelessWidget {
   const ShoeDisplayCardSmall({

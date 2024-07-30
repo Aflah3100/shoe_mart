@@ -23,9 +23,9 @@ class LikeButton extends StatelessWidget {
     return Consumer<FavouritesDatabaseProvider>(
       builder: (context, notifier, child) {
         bool isLiked = false;
-        final list = notifier.getFavouritesList();
-        for (int i = 0; i < list.length; i++) {
-          if (list[i].id == displaySneaker.id) {
+        final idList = notifier.getFavouritesIdList();
+        for (int i = 0; i < idList.length; i++) {
+          if (idList[i] == displaySneaker.id) {
             isLiked = true;
             break;
           }
@@ -52,8 +52,7 @@ class LikeButton extends StatelessWidget {
                     if (result is bool) {
                       //Success-in-adding-to-favourties-cart
                       favouritesDatabaseNotifier
-                          .addSneakerToFavouriteList(
-                              sneaker: hiveSneaker);
+                          .addSneakerIdToFavouriteList(sneakerId: hiveSneaker.id);
                     } else {
                       //Error-in-adding-to-favourties-cart
                       Fluttertoast.showToast(

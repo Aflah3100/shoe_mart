@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:shoe_mart/database/models/sneaker_model/hive_sneaker_model.dart';
 
 class FavouritesDatabaseProvider with ChangeNotifier {
-  final List<HiveSneakerModel> _favouritesList = [];
+  final List<String> _favouritesIdList = [];
 
-  void addSneakerToFavouriteList({required HiveSneakerModel sneaker}) {
-    _favouritesList.add(sneaker);
+  void addSneakerIdToFavouriteList({required String sneakerId}) {
+    _favouritesIdList.add(sneakerId);
     notifyListeners();
   }
 
-  void addProductsToFavouritesList({required List<HiveSneakerModel> productList}) {
-    _favouritesList.clear();
-    _favouritesList.addAll(productList);
+  void addProductsIdsToFavouritesList({required List<String> productIdList}) {
+    _favouritesIdList.clear();
+    _favouritesIdList.addAll(productIdList);
     notifyListeners();
   }
 
   void deleteProductFromFavouritesList({required String id}) {
-    _favouritesList.removeWhere((product) => product.id == id);
+    _favouritesIdList.removeWhere((productId) => productId == id);
     notifyListeners();
   }
 
-  List<HiveSneakerModel> getFavouritesList() {
-    return _favouritesList;
+  List<String> getFavouritesIdList() {
+    return _favouritesIdList;
   }
 }
