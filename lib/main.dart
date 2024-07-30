@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
-import 'package:shoe_mart/database/functions/cart_box/cart_db.dart';
 import 'package:shoe_mart/database/models/sneaker_model/hive_sneaker_model.dart';
 import 'package:shoe_mart/providers/cart_database_provider.dart';
 import 'package:shoe_mart/providers/favourites_database_provider.dart';

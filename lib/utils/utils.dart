@@ -15,4 +15,8 @@ String kidsShoesJson = 'assets/json/kids_shoes.json';
 String womenShoesJson = 'assets/json/women_shoes.json';
 
 //Colors
-const bgColor=const Color(0xffe2e2e2);
+const bgColor = Color(0xffe2e2e2);
+
+//enums
+
+enum Logintype { sigin, signup }
