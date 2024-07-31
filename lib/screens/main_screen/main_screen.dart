@@ -6,6 +6,7 @@ import 'package:shoe_mart/screens/main_screen/widgets/bottom_nav_bar.dart';
 import 'package:shoe_mart/screens/cart_screen/cart_screen.dart';
 import 'package:shoe_mart/screens/favourites_screen/favourites_screen.dart';
 import 'package:shoe_mart/screens/profile_screen/profile_screen.dart';
+import 'package:shoe_mart/utils/utils.dart';
 
 class ScreenMain extends StatelessWidget {
   const ScreenMain({super.key});
@@ -24,7 +25,7 @@ class ScreenMain extends StatelessWidget {
     return Consumer<ScreensProvider>(builder: (context, value, child) {
       int screenIndex = value.getScreenIndex();
       return Scaffold(
-        backgroundColor: (screenIndex == 0) ? Colors.transparent : Colors.white,
+        backgroundColor: (screenIndex == 0) ? Colors.transparent : bgColor,
         body: appScreens[screenIndex],
         bottomNavigationBar: BottomNavBar(height: height, width: width),
       );

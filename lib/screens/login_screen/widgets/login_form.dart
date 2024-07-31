@@ -40,6 +40,7 @@ class LoginForm extends StatelessWidget {
         LoginFunctions.instance.validatePassword(passwordController.text);
 
     if (emailCheck is bool && passwordCheck is bool) {
+      userNotifier.setErrorString(error: '');
       //Success
       final authResult = await FirebaseAuthFunctions.instance
           .signInUserUsingEmail(
