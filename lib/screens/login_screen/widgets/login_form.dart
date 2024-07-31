@@ -1,11 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:shoe_mart/firebase/firebase_auth/firebase_auth_functions.dart';
+import 'package:shoe_mart/models/user_model.dart';
 import 'package:shoe_mart/providers/user_provider.dart';
 import 'package:shoe_mart/screens/login_screen/functions/login_functions.dart';
 import 'package:shoe_mart/screens/main_screen/main_screen.dart';
+import 'package:shoe_mart/services/shared_prefs/shared_prefs.dart';
 import 'package:shoe_mart/utils/themes/text_styles.dart';
 import 'package:shoe_mart/utils/utils.dart';
 
@@ -29,6 +30,83 @@ class LoginForm extends StatelessWidget {
   final TextEditingController passwordController;
   final TextEditingController confimPasswordController;
   final UserProvider userNotifier;
+
+  //functions
+
+  void _signInUser(BuildContext context) async {
+    final emailCheck =
+        LoginFunctions.instance.validateEmail(emailController.text);
+    final passwordCheck =
+        LoginFunctions.instance.validatePassword(passwordController.text);
+
+    if (emailCheck is bool && passwordCheck is bool) {
+      //Success
+      final authResult = await FirebaseAuthFunctions.instance
+          .signInUserUsingEmail(
+              email: emailController.text, password: passwordController.text);
+
+      if (authResult is UserModel) {
+        //Firebase-Authentication-Success
+        final result =
+            await SharedPrefs.instance.saveUserModel(user: authResult);
+        if (result) {
+          //Shared-Preferences-Save-Success
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (ctx) => const ScreenMain()));
+        }
+      } else if (authResult is String) {
+        userNotifier.setErrorString(error: authResult);
+      }
+    } else if (emailCheck is String) {
+      userNotifier.setErrorString(error: emailCheck);
+    } else if (passwordCheck is String) {
+      userNotifier.setErrorString(error: passwordCheck);
+    }
+  }
+
+  void signUpUser(BuildContext context) async {
+    final namecheck = LoginFunctions.instance.validateName(nameController.text);
+    final emailCheck =
+        LoginFunctions.instance.validateEmail(emailController.text);
+    final passwordCheck =
+        LoginFunctions.instance.validatePassword(passwordController.text);
+    final confPasswordCheck = LoginFunctions.instance.checkEnteredPassword(
+        passwordController.text, confimPasswordController.text);
+
+    if (namecheck is bool &&
+        emailCheck is bool &&
+        passwordCheck is bool &&
+        confPasswordCheck is bool) {
+      //Success
+
+      userNotifier.setErrorString(error: '');
+
+      final authResult = await FirebaseAuthFunctions.instance
+          .registerUserUsingEmail(
+              name: nameController.text,
+              email: emailController.text,
+              password: passwordController.text);
+
+      if (authResult is UserModel) {
+        //Firebase-Authentication-Success
+        final result =
+            await SharedPrefs.instance.saveUserModel(user: authResult);
+        if (result) {
+          //Shared-Preferences-Save-Success
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (ctx) => const ScreenMain()));
+        }
+      }
+    } else if (namecheck is String) {
+      userNotifier.setErrorString(error: namecheck);
+    } else if (emailCheck is String) {
+      userNotifier.setErrorString(error: emailCheck);
+    } else if (passwordCheck is String) {
+      userNotifier.setErrorString(error: passwordCheck);
+    } else if (confPasswordCheck is String) {
+      userNotifier.setErrorString(error: confPasswordCheck);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -169,74 +247,10 @@ class LoginForm extends StatelessWidget {
             onTap: () async {
               if (loginType == Logintype.sigin) {
                 //Sign-In-User
-
-                final emailCheck =
-                    LoginFunctions.instance.validateEmail(emailController.text);
-                final passwordCheck = LoginFunctions.instance
-                    .validatePassword(passwordController.text);
-
-                if (emailCheck is bool && passwordCheck is bool) {
-                  //Success
-                  final authResult = await FirebaseAuthFunctions.instance
-                      .signInUserUsingEmail(
-                          email: emailController.text,
-                          password: passwordController.text);
-
-                  if (authResult is bool) {
-                    //Firebase-Authentication-Success
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (ctx) => const ScreenMain()));
-                  } else if (authResult is String) {
-                    userNotifier.setErrorString(error: authResult);
-                  }
-                } else if (emailCheck is String) {
-                  userNotifier.setErrorString(error: emailCheck);
-                } else if (passwordCheck is String) {
-                  userNotifier.setErrorString(error: passwordCheck);
-                }
+                _signInUser(context);
               } else {
-                final namecheck =
-                    LoginFunctions.instance.validateName(nameController.text);
-                final emailCheck =
-                    LoginFunctions.instance.validateEmail(emailController.text);
-                final passwordCheck = LoginFunctions.instance
-                    .validatePassword(passwordController.text);
-                final confPasswordCheck = LoginFunctions.instance
-                    .checkEnteredPassword(
-                        passwordController.text, confimPasswordController.text);
-
-                if (namecheck is bool &&
-                    emailCheck is bool &&
-                    passwordCheck is bool &&
-                    confPasswordCheck is bool) {
-                  //Success
-
-                  userNotifier.setErrorString(error: '');
-
-                  final authResult = await FirebaseAuthFunctions.instance
-                      .registerUserUsingEmail(
-                          name: nameController.text,
-                          email: emailController.text,
-                          password: passwordController.text);
-
-                  if (authResult is bool) {
-                    //Firebase-Authentication-Success
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (ctx) => const ScreenMain()));
-                  }
-                } else if (namecheck is String) {
-                  userNotifier.setErrorString(error: namecheck);
-                } else if (emailCheck is String) {
-                  userNotifier.setErrorString(error: emailCheck);
-                } else if (passwordCheck is String) {
-                  userNotifier.setErrorString(error: passwordCheck);
-                } else if (confPasswordCheck is String) {
-                  userNotifier.setErrorString(error: confPasswordCheck);
-                }
+                //Sign-Up-User
+                signUpUser(context);
               }
             },
             child: Container(

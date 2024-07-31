@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shoe_mart/models/user_model.dart';
 
 class FirebaseAuthFunctions {
   //Singleton
@@ -18,7 +19,9 @@ class FirebaseAuthFunctions {
       if (currentUser != null) {
         await FirebaseAuth.instance.currentUser!
             .updateProfile(displayName: name);
-        return true;
+        final UserModel loggedUser = UserModel(
+            userName: currentUser.displayName ?? 'User', userEmail: email);
+        return loggedUser;
       }
     } on FirebaseException catch (e) {
       return e.code;
@@ -33,7 +36,9 @@ class FirebaseAuthFunctions {
       User? currentUser = userCredential.user;
 
       if (currentUser != null) {
-        return true;
+        final UserModel loggedUser = UserModel(
+            userName: currentUser.displayName ?? 'User', userEmail: email);
+            return loggedUser;
       }
     } on FirebaseException catch (e) {
       return e.code;

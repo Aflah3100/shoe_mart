@@ -42,12 +42,13 @@ class BottomNavBar extends StatelessWidget {
                 ? Colors.black
                 : Colors.white,
           ),
-          //Search-Icon-Button
+
+          //Favourites-Icon-Button
           BottomNavIconButton(
             onPressed: () {
               screensProviderModel.setScreenIndex(1);
             },
-            icon: Icons.search_outlined,
+            icon: Icons.favorite_outline,
             size: 27,
             backgroundColor: (screensProviderModel.getScreenIndex() == 1)
                 ? Colors.white
@@ -57,12 +58,12 @@ class BottomNavBar extends StatelessWidget {
                 ? Colors.black
                 : Colors.white,
           ),
-          //Favourites-Icon-Button
+          //Cart-Icon-Button
           BottomNavIconButton(
             onPressed: () {
               screensProviderModel.setScreenIndex(2);
             },
-            icon: Icons.favorite_outline,
+            icon: Icons.shopping_cart_outlined,
             size: 27,
             backgroundColor: (screensProviderModel.getScreenIndex() == 2)
                 ? Colors.white
@@ -72,33 +73,18 @@ class BottomNavBar extends StatelessWidget {
                 ? Colors.black
                 : Colors.white,
           ),
-          //Cart-Icon-Button
+          //User-Profile-Icon-Button
           BottomNavIconButton(
             onPressed: () {
               screensProviderModel.setScreenIndex(3);
             },
-            icon: Icons.shopping_cart_outlined,
+            icon: Icons.person_2_outlined,
             size: 27,
             backgroundColor: (screensProviderModel.getScreenIndex() == 3)
                 ? Colors.white
                 : Colors.transparent,
             highlightColor: Colors.white,
             iconColor: (screensProviderModel.getScreenIndex() == 3)
-                ? Colors.black
-                : Colors.white,
-          ),
-          //User-Profile-Icon-Button
-          BottomNavIconButton(
-            onPressed: () {
-              screensProviderModel.setScreenIndex(4);
-            },
-            icon: Icons.person_2_outlined,
-            size: 27,
-            backgroundColor: (screensProviderModel.getScreenIndex() == 4)
-                ? Colors.white
-                : Colors.transparent,
-            highlightColor: Colors.white,
-            iconColor: (screensProviderModel.getScreenIndex() == 4)
                 ? Colors.black
                 : Colors.white,
           ),

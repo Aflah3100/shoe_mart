@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shoe_mart/models/sneaker_model.dart';
 import 'package:shoe_mart/screens/all_products_screen/widgets/display_sneaker_grid.dart';
 import 'package:shoe_mart/screens/all_products_screen/widgets/filter_bottom_sheet.dart';
-import 'package:shoe_mart/services/api_services.dart';
+import 'package:shoe_mart/services/api/api_services.dart';
 import 'package:shoe_mart/utils/themes/text_styles.dart';
 import 'package:shoe_mart/utils/utils.dart';
 
