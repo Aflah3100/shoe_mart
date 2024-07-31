@@ -7,6 +7,7 @@ import 'package:shoe_mart/screens/main_screen/widgets/bottom_nav_bar.dart';
 import 'package:shoe_mart/screens/cart_screen/cart_screen.dart';
 import 'package:shoe_mart/screens/favourites_screen/favourites_screen.dart';
 import 'package:shoe_mart/screens/profile_screen/profile_screen.dart';
+import 'package:shoe_mart/screens/search_screen/search_screen.dart';
 import 'package:shoe_mart/utils/utils.dart';
 
 class ScreenMain extends StatelessWidget {
@@ -16,7 +17,7 @@ class ScreenMain extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget> appScreens = [
       const ScreenHome(),
-      ScreenSignInSignUp(loginType: Logintype.sigin,),
+      const ScreenSearch(),
       const ScreenFavourites(),
       const ScreenCart(),
       const ScreenProfile()

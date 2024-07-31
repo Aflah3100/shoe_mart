@@ -1,13 +1,16 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
+import 'package:shoe_mart/providers/user_provider.dart';
+import 'package:shoe_mart/screens/login_screen/widgets/login_form.dart';
 import 'package:shoe_mart/utils/themes/text_styles.dart';
 import 'package:shoe_mart/utils/utils.dart';
 
+// ignore: must_be_immutable
 class ScreenSignInSignUp extends StatelessWidget {
-  ScreenSignInSignUp({super.key,required this.loginType});
-
-  final Logintype loginType;
+  ScreenSignInSignUp({super.key});
 
   //Controllers
   final nameController = TextEditingController();
@@ -19,6 +22,7 @@ class ScreenSignInSignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width * 1;
     final height = MediaQuery.of(context).size.height * 1;
+
     return Scaffold(
       backgroundColor: bgColor,
       body: SizedBox(
@@ -79,128 +83,66 @@ class ScreenSignInSignUp extends StatelessWidget {
             //Signin-Signup-heading
             Padding(
               padding: EdgeInsets.only(top: height * 0.225, left: width * 0.13),
-              child: Text(
-                'Sign in to your Account',
-                style: appTextStyle(
-                    fontSize: 28.0,
-                    fontColor: Colors.white70,
-                    fontWeight: FontWeight.w600),
+              child: Selector<UserProvider, Logintype>(
+                builder: (context, value, child) {
+                  return Text(
+                    (value == Logintype.sigin)
+                        ? 'Sign in to your Account'
+                        : 'Create A New Account',
+                    style: appTextStyle(
+                        fontSize: 28.0,
+                        fontColor: Colors.white70,
+                        fontWeight: FontWeight.w600),
+                  );
+                },
+                selector: (ctx, userNotifier) => userNotifier.getLoginType(),
               ),
             ),
 
-            //Login-form-container
+            //Error-text-Notifier
+            Positioned(
+              top: height * 0.35,
+              child: SizedBox(
+                width: width,
+                height: height * 0.05,
+                child: Center(
+                    child: Selector<UserProvider, String>(
+                  builder: (context, value, child) {
+                    return Text(
+                      value,
+                      maxLines: 1,
+                      style: appTextStyle(
+                          fontSize: 24.0,
+                          fontColor: Colors.redAccent,
+                          fontWeight: FontWeight.w500),
+                    );
+                  },
+                  selector: (ctx, userNotifier) =>
+                      userNotifier.getErrorString(),
+                )),
+              ),
+            ),
+
+            //Login-form-Notifier
             Positioned(
                 top: height * 0.40,
-                child: Container(
-                  padding: const EdgeInsets.all(20.0),
-                  width: width,
-                  height: height,
-                  child: Column(
-                    children: [
-                      //Email-Text-Field
-                      TextFormField(
-                        controller: emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          hintText: 'Email',
-                          hintStyle: appTextStyle(
-                              fontSize: 15.0,
-                              fontColor: Colors.black87,
-                              fontWeight: FontWeight.w500),
-                        ),
+                child: Consumer<UserProvider>(
+                  builder: (context, userNotifier, child) {
+                    final loginType = userNotifier.getLoginType();
+                    //Login-form-container
+                    return SingleChildScrollView(
+                      child: LoginForm(
+                        width: width,
+                        height: height,
+                        loginType: loginType,
+                        nameController: nameController,
+                        emailController: emailController,
+                        passwordController: passwordController,
+                        confimPasswordController: confimPasswordController,
+                        userNotifier: userNotifier,
                       ),
-                      SizedBox(
-                        height: height * 0.03,
-                      ),
-
-                      //Password-Text-Field
-                      TextFormField(
-                        controller: passwordController,
-                        keyboardType: TextInputType.visiblePassword,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          hintText: 'Password',
-                          hintStyle: appTextStyle(
-                              fontSize: 15.0,
-                              fontColor: Colors.black87,
-                              fontWeight: FontWeight.w500),
-                          suffixIcon: const Icon(
-                            Ionicons.eye_off,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: height * 0.01,
-                      ),
-                      //Forgot-password-button
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                'Forgot Password?',
-                                style: appTextStyle(
-                                    fontSize: 16.0,
-                                    fontColor: Colors.black,
-                                    fontWeight: FontWeight.w600),
-                              ))),
-                      SizedBox(
-                        height: height * 0.02,
-                      ),
-                      //Login-button
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          width: width,
-                          height: 65,
-                          decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(12.0)),
-                          child: Center(
-                            child: Text(
-                              'Login',
-                              style: appTextStyle(
-                                  fontSize: 20.0,
-                                  fontColor: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: height * 0.05,
-                      ),
-
-                      //Bottom-text-row
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Don\'t have an account?',
-                            style: appTextStyle(
-                                fontSize: 15.0,
-                                fontColor: Colors.black87,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            width: width * 0.01,
-                          ),
-                          Text(
-                            'Register',
-                            style: appTextStyle(
-                                fontSize: 16.0,
-                                fontColor: Colors.black,
-                                fontWeight: FontWeight.w600),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
+                    );
+                  },
                 ))
           ],
         ),

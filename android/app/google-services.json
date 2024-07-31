@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "277723869732",
+    "project_id": "shoe-mart-7b080",
+    "storage_bucket": "shoe-mart-7b080.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:277723869732:android:9956aba36c03c5a21d5eb1",
+        "android_client_info": {
+          "package_name": "com.example.shoe_mart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0SlCWe5SLdWqGy3KEu9oanoJjhS26q7Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
