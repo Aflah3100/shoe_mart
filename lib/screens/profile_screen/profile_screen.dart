@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import 'package:shoe_mart/providers/screen_provider.dart';
+import 'package:shoe_mart/screens/change_password_screen/change_password_screen.dart';
 import 'package:shoe_mart/screens/login_screen/signin_signup_screen.dart';
 import 'package:shoe_mart/screens/profile_screen/widgets/bottom_text.dart';
 import 'package:shoe_mart/screens/profile_screen/widgets/profile_screen_button.dart';
@@ -14,7 +15,7 @@ import 'package:shoe_mart/utils/utils.dart';
 class ScreenProfile extends StatelessWidget {
   const ScreenProfile({super.key});
 
-  void _signOutUser(BuildContext context) async {
+  static void signOutUser(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     // ignore: use_build_context_synchronously
     context.read<ScreensProvider>().setScreenIndex(0);
@@ -131,7 +132,12 @@ class ScreenProfile extends StatelessWidget {
                             description: 'Edit your password',
                             leadingIcon: Ionicons.lock_closed,
                             trailingIcon: Ionicons.caret_forward,
-                            onTap: () {}),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) =>  ScreenChangePassword()));
+                            }),
                         const Divider(),
                         ProfileScreenButton(
                             width: width,
@@ -140,7 +146,7 @@ class ScreenProfile extends StatelessWidget {
                             leadingIcon: Ionicons.log_out_sharp,
                             trailingIcon: Ionicons.caret_forward,
                             onTap: () {
-                              _signOutUser(context);
+                              signOutUser(context);
                             }),
                         const Divider(),
 

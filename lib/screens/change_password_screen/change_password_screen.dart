@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shoe_mart/firebase/firebase_auth/firebase_auth_functions.dart';
-import 'package:shoe_mart/providers/user_provider.dart';
-import 'package:shoe_mart/screens/login_screen/functions/login_functions.dart';
+import 'package:shoe_mart/screens/profile_screen/profile_screen.dart';
 import 'package:shoe_mart/utils/themes/text_styles.dart';
 import 'package:shoe_mart/utils/utils.dart';
 
-class ScreenForgotPassword extends StatelessWidget {
-  ScreenForgotPassword({super.key});
+class ScreenChangePassword extends StatelessWidget {
+  ScreenChangePassword({super.key});
 
-  //controllers
-  final emailController = TextEditingController();
+  final currentPasswordController = TextEditingController();
+  final newPasswordController = TextEditingController();
+
+  void _showToast(String errorMessage) {
+    Fluttertoast.showToast(
+        msg: errorMessage,
+        backgroundColor: Colors.red,
+        textColor: Colors.white);
+  }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width * 1;
     final height = MediaQuery.sizeOf(context).height * 1;
-    final userNotifer = context.read<UserProvider>();
     return Scaffold(
-      backgroundColor: bgColor,
       body: SizedBox(
         width: width,
         height: height,
@@ -48,45 +52,23 @@ class ScreenForgotPassword extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      'Reset Password',
+                      'Change Password',
                       style: appTextStyle(
                           fontSize: 30.0,
                           fontColor: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      'Enter Your Registered Email ',
+                      'Enter Your New Password ',
                       style: appTextStyle(
                           fontSize: 25.0,
                           fontColor: Colors.white70,
                           fontWeight: FontWeight.w400),
-                    )
+                    ),
                   ],
                 ),
               ),
             ),
-            //Display-text
-            Positioned(
-                top: height * 0.35,
-                child: SizedBox(
-                  width: width,
-                  height: height * 0.10,
-                  child: Center(
-                      child: Selector<UserProvider, String>(
-                    selector: (ctx, userProvider) =>
-                        userProvider.getDisplayString(),
-                    builder: (context, displayString, child) {
-                      return Text(
-                        displayString,
-                        style: appTextStyle(
-                            fontSize: 25.0,
-                            fontColor: Colors.red,
-                            fontWeight: FontWeight.w500),
-                      );
-                    },
-                  )),
-                )),
-            //Text-field-container
             Positioned(
               top: height * 0.45,
               child: Container(
@@ -96,14 +78,33 @@ class ScreenForgotPassword extends StatelessWidget {
                 // color: Colors.red,
                 child: Column(
                   children: [
-                    //Email-Text-Field
+                    //CurrentPassword-Text-Field
                     TextFormField(
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
+                      controller: currentPasswordController,
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0)),
-                        hintText: 'Email',
+                        hintText: 'Current Password',
+                        hintStyle: appTextStyle(
+                            fontSize: 15.0,
+                            fontColor: Colors.black87,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    SizedBox(
+                      height: height * 0.03,
+                    ),
+                    //NewPassword-Text-Field
+                    TextFormField(
+                      controller: newPasswordController,
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        hintText: 'New Password',
                         hintStyle: appTextStyle(
                             fontSize: 15.0,
                             fontColor: Colors.black87,
@@ -115,23 +116,28 @@ class ScreenForgotPassword extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        final emailCheck = LoginFunctions.instance
-                            .validateEmail(emailController.text);
-                        if (emailCheck is bool) {
-                          userNotifer.setDisplayString(str: '');
-                          // success
-                          final authResult = await FirebaseAuthFunctions
+                        final currentPassword = currentPasswordController.text;
+                        final newPassword = newPasswordController.text;
+                        if (currentPassword.isEmpty) {
+                          _showToast('Enter current Password');
+                        } else if (newPassword.isEmpty) {
+                          _showToast('Enter new Password');
+                        } else {
+                          final authResult1 = await FirebaseAuthFunctions
                               .instance
-                              .resetPasswordUsingEmail(
-                                  email: emailController.text);
-                          if (authResult is bool) {
-                            userNotifer.setDisplayString(
-                                str: 'Reset Link sent');
-                          } else if (authResult is String) {
-                            userNotifer.setDisplayString(str: authResult);
+                              .reauthenticateUser(
+                                  currentPassword: currentPassword);
+                          if (authResult1 is bool) {
+                            //Reauthentication-Success
+                            final authResult2 = await FirebaseAuthFunctions
+                                .instance
+                                .changePassword(newPassword: newPassword);
+                            if (authResult2 is bool) {
+                              _showToast('Password Changed Succesfully');
+                              // ignore: use_build_context_synchronously
+                              ScreenProfile.signOutUser(context);
+                            }
                           }
-                        } else if (emailCheck is String) {
-                          userNotifer.setDisplayString(str: emailCheck);
                         }
                       },
                       child: Container(
@@ -142,7 +148,7 @@ class ScreenForgotPassword extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12.0)),
                         child: Center(
                           child: Text(
-                            'Reset Password',
+                            'Change Password',
                             style: appTextStyle(
                                 fontSize: 20.0,
                                 fontColor: Colors.white,

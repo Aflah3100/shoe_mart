@@ -54,4 +54,33 @@ class FirebaseAuthFunctions {
       return e.code;
     }
   }
+
+  Future<dynamic> reauthenticateUser({required String currentPassword}) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null && user.email != null) {
+        AuthCredential credential = EmailAuthProvider.credential(
+            email: user.email!, password: currentPassword);
+
+        await user.reauthenticateWithCredential(credential);
+
+        return true;
+      }
+    } on FirebaseException catch (e) {
+      return e.code;
+    }
+  }
+
+  Future<dynamic> changePassword({required String newPassword}) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await user.updatePassword(newPassword);
+
+        return true;
+      }
+    } on FirebaseException catch (e) {
+      return e.code;
+    }
+  }
 }
