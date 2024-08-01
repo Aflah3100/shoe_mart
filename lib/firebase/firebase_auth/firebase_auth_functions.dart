@@ -38,8 +38,18 @@ class FirebaseAuthFunctions {
       if (currentUser != null) {
         final UserModel loggedUser = UserModel(
             userName: currentUser.displayName ?? 'User', userEmail: email);
-            return loggedUser;
+        return loggedUser;
       }
+    } on FirebaseException catch (e) {
+      return e.code;
+    }
+  }
+
+  Future<dynamic> resetPasswordUsingEmail({required String email}) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+
+      return true;
     } on FirebaseException catch (e) {
       return e.code;
     }

@@ -4,7 +4,7 @@ import 'package:shoe_mart/utils/utils.dart';
 class UserProvider with ChangeNotifier {
   Logintype _logintype = Logintype.sigin;
   bool _showPassword = false;
-  String _errorString = '';
+  String _displayString = '';
 
   void setLoginType(Logintype type) {
     _logintype = type;
@@ -13,8 +13,8 @@ class UserProvider with ChangeNotifier {
 
   Logintype getLoginType() => _logintype;
 
-  void setErrorString({required String error}) {
-    _errorString = error;
+  void setDisplayString({required String str}) {
+    _displayString = str;
     notifyListeners();
   }
 
@@ -25,5 +25,5 @@ class UserProvider with ChangeNotifier {
 
   bool getShowPassword() => _showPassword;
 
-  String getErrorString() => _errorString;
+  String getDisplayString() => _displayString;
 }

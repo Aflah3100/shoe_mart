@@ -4,6 +4,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:shoe_mart/firebase/firebase_auth/firebase_auth_functions.dart';
 import 'package:shoe_mart/models/user_model.dart';
 import 'package:shoe_mart/providers/user_provider.dart';
+import 'package:shoe_mart/screens/forgot_password_screen/forgot_password_screen.dart';
 import 'package:shoe_mart/screens/login_screen/functions/login_functions.dart';
 import 'package:shoe_mart/screens/main_screen/main_screen.dart';
 import 'package:shoe_mart/services/shared_prefs/shared_prefs.dart';
@@ -31,8 +32,7 @@ class LoginForm extends StatelessWidget {
   final TextEditingController confimPasswordController;
   final UserProvider userNotifier;
 
-  //functions
-
+  //Functions
   void _signInUser(BuildContext context) async {
     final emailCheck =
         LoginFunctions.instance.validateEmail(emailController.text);
@@ -40,7 +40,7 @@ class LoginForm extends StatelessWidget {
         LoginFunctions.instance.validatePassword(passwordController.text);
 
     if (emailCheck is bool && passwordCheck is bool) {
-      userNotifier.setErrorString(error: '');
+      userNotifier.setDisplayString(str: '');
       //Success
       final authResult = await FirebaseAuthFunctions.instance
           .signInUserUsingEmail(
@@ -56,12 +56,12 @@ class LoginForm extends StatelessWidget {
               context, MaterialPageRoute(builder: (ctx) => const ScreenMain()));
         }
       } else if (authResult is String) {
-        userNotifier.setErrorString(error: authResult);
+        userNotifier.setDisplayString(str: authResult);
       }
     } else if (emailCheck is String) {
-      userNotifier.setErrorString(error: emailCheck);
+      userNotifier.setDisplayString(str: emailCheck);
     } else if (passwordCheck is String) {
-      userNotifier.setErrorString(error: passwordCheck);
+      userNotifier.setDisplayString(str: passwordCheck);
     }
   }
 
@@ -80,7 +80,7 @@ class LoginForm extends StatelessWidget {
         confPasswordCheck is bool) {
       //Success
 
-      userNotifier.setErrorString(error: '');
+      userNotifier.setDisplayString(str: '');
 
       final authResult = await FirebaseAuthFunctions.instance
           .registerUserUsingEmail(
@@ -99,13 +99,13 @@ class LoginForm extends StatelessWidget {
         }
       }
     } else if (namecheck is String) {
-      userNotifier.setErrorString(error: namecheck);
+      userNotifier.setDisplayString(str: namecheck);
     } else if (emailCheck is String) {
-      userNotifier.setErrorString(error: emailCheck);
+      userNotifier.setDisplayString(str: emailCheck);
     } else if (passwordCheck is String) {
-      userNotifier.setErrorString(error: passwordCheck);
+      userNotifier.setDisplayString(str: passwordCheck);
     } else if (confPasswordCheck is String) {
-      userNotifier.setErrorString(error: confPasswordCheck);
+      userNotifier.setDisplayString(str: confPasswordCheck);
     }
   }
 
@@ -203,7 +203,13 @@ class LoginForm extends StatelessWidget {
               ? Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        userNotifier.setDisplayString(str: '');
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (ctx) => ScreenForgotPassword()));
+                      },
                       child: Text(
                         'Forgot Password?',
                         style: appTextStyle(

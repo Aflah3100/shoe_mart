@@ -118,7 +118,7 @@ class ScreenSignInSignUp extends StatelessWidget {
                     );
                   },
                   selector: (ctx, userNotifier) =>
-                      userNotifier.getErrorString(),
+                      userNotifier.getDisplayString(),
                 )),
               ),
             ),
