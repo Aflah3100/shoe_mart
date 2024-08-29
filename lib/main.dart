@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -24,7 +25,12 @@ void main() async {
   //Firebase-Initialisation
   await Firebase.initializeApp();
 
-  runApp(const MyApp());
+  runApp(DevicePreview(
+    enabled: true,
+    builder: (context) {
+      return const MyApp();
+    }
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -42,6 +48,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (ctx) => UserProvider())
       ],
       child: MaterialApp(
+        locale: DevicePreview.locale(context),
+        builder: DevicePreview.appBuilder,
           title: 'Shoe Mart',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(

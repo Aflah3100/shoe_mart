@@ -6,10 +6,13 @@ import 'package:shoe_mart/models/user_model.dart';
 import 'package:shoe_mart/providers/user_provider.dart';
 import 'package:shoe_mart/screens/forgot_password_screen/forgot_password_screen.dart';
 import 'package:shoe_mart/screens/login_screen/functions/login_functions.dart';
+import 'package:shoe_mart/screens/login_screen/widgets/signin_button.dart';
 import 'package:shoe_mart/screens/main_screen/main_screen.dart';
 import 'package:shoe_mart/services/shared_prefs/shared_prefs.dart';
 import 'package:shoe_mart/utils/themes/text_styles.dart';
 import 'package:shoe_mart/utils/utils.dart';
+
+
 
 class LoginForm extends StatelessWidget {
   const LoginForm(
@@ -31,9 +34,10 @@ class LoginForm extends StatelessWidget {
   final TextEditingController passwordController;
   final TextEditingController confimPasswordController;
   final UserProvider userNotifier;
+ 
 
   //Functions
-  void _signInUser(BuildContext context) async {
+  Future<void> _signInUser(BuildContext context) async {
     final emailCheck =
         LoginFunctions.instance.validateEmail(emailController.text);
     final passwordCheck =
@@ -65,7 +69,7 @@ class LoginForm extends StatelessWidget {
     }
   }
 
-  void signUpUser(BuildContext context) async {
+  Future<void> signUpUser(BuildContext context) async {
     final namecheck = LoginFunctions.instance.validateName(nameController.text);
     final emailCheck =
         LoginFunctions.instance.validateEmail(emailController.text);
@@ -250,32 +254,12 @@ class LoginForm extends StatelessWidget {
                 ),
 
           //Login-button
-          GestureDetector(
-            onTap: () async {
-              if (loginType == Logintype.sigin) {
-                //Sign-In-User
-                _signInUser(context);
-              } else {
-                //Sign-Up-User
-                signUpUser(context);
-              }
-            },
-            child: Container(
-              width: width,
-              height: 65,
-              decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(12.0)),
-              child: Center(
-                child: Text(
-                  (loginType == Logintype.sigin) ? 'Login' : 'SignUp',
-                  style: appTextStyle(
-                      fontSize: 20.0,
-                      fontColor: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
+          SigninSignUpButton(
+            loginType: loginType,
+            width: width,
+            signInFunction: _signInUser,
+            signUpFunction: signUpUser,
+            
           ),
           SizedBox(
             height: height * 0.05,
