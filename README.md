@@ -35,5 +35,50 @@ To run this application locally, follow these steps:
    flutter run
 
 ## Screenshots
-   
+
+<table>
+  <tr>
+    <td>
+      <img src="screenshots/login_screen.png" alt="Login Screen" width="300"/>
+      <p align="center"><b>Login Screen</b></p>
+    </td>
+    <td>
+      <img src="screenshots/home_screen_men.png" alt="Home Screen Men" width="300"/>
+      <p align="center"><b>Home Screen Men Sneakers</b></p>
+    </td>
+    <td>
+      <img src="screenshots/home_screen_women.png" alt="Home Screen Women" width="300"/>
+      <p align="center"><b>Home Screen Women Sneakers</b></p>
+    </td>
+  </tr>
+   <tr><td colspan="3"><hr style="margin: 20px 0;"></td></tr>
+
+  <tr>
+    <td>
+      <img src="screenshots/all_products_screen.png" alt="Sneakers Screen" width="300"/>
+      <p align="center"><b>Sneakers Screen</b></p>
+    </td>
+    <td>
+      <img src="screenshots/product_display_screen.png" alt="Product Display Screen" width="300"/>
+      <p align="center"><b>Product Display Screen</b></p>
+    </td>
+    <td>
+      <img src="screenshots/favourites_screen.png" alt="Favourites Screen" width="300"/>
+      <p align="center"><b>Favourites Screen</b></p>
+    </td>
+  </tr>
+  <tr><td colspan="3"><hr style="margin: 20px 0;"></td></tr>
+
+  <tr>
+    <td>
+      <img src="screenshots/cart_screen.png" alt="Cart Screen" width="300"/>
+      <p align="center"><b>Cart Screen</b></p>
+    </td>
+    <td>
+      <img src="screenshots/profile_screen.png" alt="Profile Screen" width="300"/>
+      <p align="center"><b>Profile Screen</b></p>
+    </td>
+  </tr>
+</table>
+
 
