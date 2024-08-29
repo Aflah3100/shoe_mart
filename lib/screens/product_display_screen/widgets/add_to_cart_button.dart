@@ -32,7 +32,7 @@ class AddToCartButton extends StatelessWidget {
           Fluttertoast.showToast(
             msg: 'Please Select a Shoe Size',
             toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
+            gravity: ToastGravity.CENTER,
             backgroundColor: Colors.green,
             textColor: Colors.white,
             fontSize: 15.0,
@@ -79,7 +79,7 @@ class AddToCartButton extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(top: height * 0.01),
         width: width * 0.90,
-        height: 50,
+        height: 70,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.0), color: Colors.black),
         child: Row(

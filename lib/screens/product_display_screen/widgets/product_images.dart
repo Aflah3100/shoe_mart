@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shoe_mart/models/sneaker_model.dart';
+import 'package:shoe_mart/utils/utils.dart';
 
 class ProductImages extends StatelessWidget {
   const ProductImages({
@@ -17,9 +18,8 @@ class ProductImages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      height: height * 0.50,
+    return Container(
+      color: Colors.white,
       child: PageView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: sneaker.imageUrl.length,
@@ -28,25 +28,29 @@ class ProductImages extends StatelessWidget {
             return Stack(
               children: [
                 //Sneaker-Images
-                Image.network(fit: BoxFit.contain, sneaker.imageUrl[index]),
+                Image.network(fit: BoxFit.scaleDown, sneaker.imageUrl[index]),
 
                 //circle-scroll-indicator
-                Positioned(
-                  bottom: 60,
-                  left: width * 0.44,
-                  child: Row(
-                      children: List<Widget>.generate(
-                          sneaker.imageUrl.length,
-                          (ind) => Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 3),
-                                child: CircleAvatar(
-                                  radius: 4,
-                                  backgroundColor: (ind == index)
-                                      ? Colors.black
-                                      : Colors.grey,
-                                ),
-                              ))),
+                Padding(
+                  padding: EdgeInsets.only(left: width * 0.44, bottom: 10),
+                  child: Align(
+                    // top: height * 0.45,
+                    // left: width * 0.44,
+                    alignment: Alignment.bottomRight,
+                    child: Row(
+                        children: List<Widget>.generate(
+                            sneaker.imageUrl.length,
+                            (ind) => Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 3),
+                                  child: CircleAvatar(
+                                    radius: 4,
+                                    backgroundColor: (ind == index)
+                                        ? Colors.black
+                                        : Colors.grey,
+                                  ),
+                                ))),
+                  ),
                 )
               ],
             );

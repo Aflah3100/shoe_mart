@@ -23,7 +23,6 @@ class UserInfoBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: height * 0.10,
       padding: EdgeInsets.only(left: width * 0.04, top: height * 0.01),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,9 +57,10 @@ class UserInfoBar extends StatelessWidget {
               //Useremail-text
               Text(
                 maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 userEmail,
                 style: appTextStyle(
-                    fontSize: 20.0,
+                    fontSize: 18.0,
                     fontColor: Colors.white,
                     fontWeight: FontWeight.w500),
               ),

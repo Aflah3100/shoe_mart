@@ -23,44 +23,44 @@ class ProductDetails extends StatelessWidget {
   final SneakerModel sneaker;
   final int tabIndex;
 
-  Future<dynamic> showSizeChart(BuildContext context, int index) {
+  static Future<dynamic> showSizeChart(BuildContext context, int index) {
     return showModalBottomSheet(
       context: context,
       builder: (context) {
-        final height = MediaQuery.of(context).size.height * 1;
         final width = MediaQuery.of(context).size.width * 1;
         //Base-Container
         return Container(
           width: width,
-          height: height * 0.80,
           padding: const EdgeInsets.all(10.0),
           decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(16), topRight: Radius.circular(16))),
-          child: Column(
-            children: [
-              Text(
-                'Size Chart ',
-                style: appTextStyle(
-                    fontSize: 25.0,
-                    fontColor: Colors.black,
-                    fontWeight: FontWeight.bold),
-              ),
-              //Image-container
-              Container(
-                width: 500,
-                height: 500,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: (index == 0)
-                          ? AssetImage(menSizeGuide)
-                          : (index == 1)
-                              ? AssetImage(womenSizeGuide)
-                              : AssetImage(kidsSizeGuide)),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Text(
+                  'Size Chart ',
+                  style: appTextStyle(
+                      fontSize: 25.0,
+                      fontColor: Colors.black,
+                      fontWeight: FontWeight.bold),
                 ),
-              ),
-            ],
+                //Image-container
+                Container(
+                  width: 500,
+                  height: 500,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: (index == 0)
+                            ? AssetImage(menSizeGuide)
+                            : (index == 1)
+                                ? AssetImage(womenSizeGuide)
+                                : AssetImage(kidsSizeGuide)),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -77,7 +77,6 @@ class ProductDetails extends StatelessWidget {
           productIdList: productIdList);
     });
     return Container(
-      height: height * 0.60,
       width: width,
       padding: const EdgeInsets.all(15.0),
       decoration: const BoxDecoration(
@@ -218,26 +217,20 @@ class ProductDetails extends StatelessWidget {
           ),
 
           //Product-description-text
-          Flexible(
-            child: Text(
-              maxLines: 8,
-              overflow: TextOverflow.fade,
-              sneaker.description ?? '',
-              style: appTextStyle(
-                  fontSize: 15,
-                  fontColor: Colors.grey,
-                  fontWeight: FontWeight.normal),
-            ),
+          Text(
+            overflow: TextOverflow.fade,
+            sneaker.description ?? '',
+            style: appTextStyle(
+                fontSize: 15,
+                fontColor: Colors.grey,
+                fontWeight: FontWeight.normal),
           ),
           //checkout-button
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: AddToCartButton(
-              height: height,
-              width: width,
-              sneaker: sneaker,
-              tabIndex: tabIndex,
-            ),
+          AddToCartButton(
+            height: height,
+            width: width,
+            sneaker: sneaker,
+            tabIndex: tabIndex,
           )
         ],
       ),
