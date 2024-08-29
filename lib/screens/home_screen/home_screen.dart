@@ -61,11 +61,11 @@ class _ScreenHomeState extends State<ScreenHome> with TickerProviderStateMixin {
                     padding: EdgeInsets.all(height * 0.02),
                     child: SizedBox(
                       width: width,
-                      height: height * 0.09,
+                      height: height * 0.1,
                       child: Text(
                         'The Ultimate Shoe\n Collection',
                         style: appTextStyle(
-                          fontSize: 33,
+                          fontSize: getResponsiveFontSize(context, 33),
                           fontColor: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),

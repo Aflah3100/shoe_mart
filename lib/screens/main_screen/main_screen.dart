@@ -25,7 +25,7 @@ class ScreenMain extends StatelessWidget {
     return Consumer<ScreensProvider>(builder: (context, value, child) {
       int screenIndex = value.getScreenIndex();
       return Scaffold(
-        backgroundColor: (screenIndex == 0) ? Colors.transparent : bgColor,
+        backgroundColor: (screenIndex == 0) ? Colors.black : bgColor,
         body: appScreens[screenIndex],
         bottomNavigationBar: BottomNavBar(height: height, width: width),
       );

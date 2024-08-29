@@ -34,65 +34,66 @@ class ShoeDisplayCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(height * 0.01),
         width: width * 0.55,
-        height: height * 0.40,
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(15.0)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            LikeButton(
-                displaySneaker: displaySneaker,
-                tabIndex: tabIndex,
-                favouritesDatabaseNotifier: favouritesDatabaseNotifier),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              LikeButton(
+                  displaySneaker: displaySneaker,
+                  tabIndex: tabIndex,
+                  favouritesDatabaseNotifier: favouritesDatabaseNotifier),
 
-            //Shoe-Image-Container
-            Container(
-              width: width * 0.55,
-              height: height * .15,
-              color: Colors.transparent,
-              child: Image.network(
-                displaySneaker.imageUrl[0],
-                fit: BoxFit.cover,
+              //Shoe-Image-Container
+              Container(
+                width: width * 0.55,
+                height: height * .15,
+                color: Colors.transparent,
+                child: Image.network(
+                  displaySneaker.imageUrl[0],
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            SizedBox(
-              height: height * 0.02,
-            ),
-            //Shoe-Text
-            Text(
-              displaySneaker.name!,
-              style: appTextStyle(
-                  fontSize: 25,
-                  fontColor: Colors.black,
-                  fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: height * 0.005,
-            ),
-            //Shoe-Description-Text
-            Text(
-              displaySneaker.category!,
-              style: appTextStyle(
-                  fontSize: 20,
-                  fontColor: Colors.grey,
-                  fontWeight: FontWeight.w500),
-            ),
-            SizedBox(
-              height: height * 0.01,
-            ),
-            //Shoe-Price
-            Text(
-              '\$ ${displaySneaker.price!}',
-              style: appTextStyle(
-                  fontSize: 22,
-                  fontColor: Colors.black,
-                  fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: height * 0.007,
-            ),
-          ],
+              SizedBox(
+                height: height * 0.02,
+              ),
+              //Shoe-Text
+              Text(
+                displaySneaker.name!,
+                style: appTextStyle(
+                    fontSize: 25,
+                    fontColor: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: height * 0.005,
+              ),
+              //Shoe-Description-Text
+              Text(
+                displaySneaker.category!,
+                style: appTextStyle(
+                    fontSize: 20,
+                    fontColor: Colors.grey,
+                    fontWeight: FontWeight.w500),
+              ),
+              SizedBox(
+                height: height * 0.01,
+              ),
+              //Shoe-Price
+              Text(
+                '\$ ${displaySneaker.price!}',
+                style: appTextStyle(
+                    fontSize: 22,
+                    fontColor: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: height * 0.007,
+              ),
+            ],
+          ),
         ),
       ),
     );

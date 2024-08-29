@@ -32,7 +32,7 @@ class DisplaySneaker extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: height * 0.01),
             child: SizedBox(
                 width: width,
-                height: height * 0.40,
+                height: height * 0.38,
                 child: FutureBuilder(
                     future: _sneakerList,
                     builder: (ctx, snapshot) {

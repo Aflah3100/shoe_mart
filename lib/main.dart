@@ -25,12 +25,7 @@ void main() async {
   //Firebase-Initialisation
   await Firebase.initializeApp();
 
-  runApp(DevicePreview(
-    enabled: true,
-    builder: (context) {
-      return const MyApp();
-    }
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -48,8 +43,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (ctx) => UserProvider())
       ],
       child: MaterialApp(
-        locale: DevicePreview.locale(context),
-        builder: DevicePreview.appBuilder,
           title: 'Shoe Mart',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
@@ -58,12 +51,10 @@ class MyApp extends StatelessWidget {
           ),
           home: FutureBuilder<UserModel?>(
               future: SharedPrefs.instance.getUserModel(),
-
               builder: (ctx, snapshot) {
-               
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasData && snapshot.data!=null) {
+                } else if (snapshot.hasData && snapshot.data != null) {
                   return const ScreenMain();
                 } else {
                   return ScreenSignInSignUp();

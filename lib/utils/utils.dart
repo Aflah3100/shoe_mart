@@ -1,6 +1,8 @@
 //Assets
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 String backgroundShoeImage = 'assets/images/shoe_background_image.jpg';
 String adidasLogo = 'assets/images/adidas.png';
 String gucciLogo = 'assets/images/gucci.png';
@@ -18,5 +20,10 @@ String womenShoesJson = 'assets/json/women_shoes.json';
 const bgColor = Color(0xffe2e2e2);
 
 //enums
-
 enum Logintype { sigin, signup }
+
+double getResponsiveFontSize(BuildContext context, double baseFontSize) {
+  double baseWidth = 475.0;
+  double screenWidth = MediaQuery.of(context).size.width;
+  return baseFontSize * (screenWidth / baseWidth);
+}
