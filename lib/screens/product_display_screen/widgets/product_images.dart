@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:shoe_mart/models/sneaker_model.dart';
 
@@ -25,13 +24,12 @@ class ProductImages extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: sneaker.imageUrl.length,
           controller: _pageController,
-          onPageChanged: (page) {},
           itemBuilder: (ctx, index) {
             return Stack(
               children: [
                 //Sneaker-Images
                 Image.network(fit: BoxFit.contain, sneaker.imageUrl[index]),
-                
+
                 //circle-scroll-indicator
                 Positioned(
                   bottom: 60,

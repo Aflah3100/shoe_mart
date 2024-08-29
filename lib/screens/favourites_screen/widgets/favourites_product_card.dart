@@ -122,7 +122,7 @@ class FavouritesProductCard extends StatelessWidget {
                       Text(
                         sneakerType,
                         style: appTextStyle(
-                            fontSize: 18.0,
+                            fontSize: 15.0,
                             fontColor: Colors.blueGrey,
                             fontWeight: FontWeight.w600),
                       )
